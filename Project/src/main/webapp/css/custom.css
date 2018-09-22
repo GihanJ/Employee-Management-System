@@ -1,0 +1,120 @@
+@charset "ISO-8859-1";
+
+body
+	{
+		font-family: Georgia;
+		/*background-color: #f1f1f1;*/ 
+		background-color: #ccccff;
+
+	}
+
+.header
+	{
+		width: 100%;
+		
+		background-image: url("/Images/h.jpg");
+	}
+
+.navbar
+	{
+		background-color:#d2d5db;
+		margin-top: 1%;
+		font-size: 13px;
+		margin-left: 2%;
+		margin-right: 2%;
+		margin-bottom: 1%;
+		border-radius: 10px;	
+	}
+
+.dropbtn 	
+	{
+	    background-color: #d2d5db;
+	    color: black;
+	    padding: 10px;
+	    font-size: 13.5px;
+	    border: none;
+	}
+
+.dropdown 
+	{
+	    position: relative;
+	    display: inline-block;
+	}
+
+.dropdown-content 
+	{
+	    display: none;
+	    position: absolute;
+	    background-color: #f1f1f1;
+	    min-width: 160px;
+	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	    z-index: 1;
+	}
+
+.dropdown-content a 
+	{
+	    color: black;
+	    padding: 12px 16px;
+	    text-decoration: none;
+	    display: block;
+	}
+
+.dropdown-content a:hover 
+	{
+		background-color: #ddd;
+	}
+
+.dropdown:hover .dropdown-content 
+	{
+		display: block;
+	}
+
+.dropdown:hover .dropbtn 
+	{
+		background-color: #4286f4;
+	}
+
+.btn-primary
+	{
+		width:46%;
+		border-radius: 10px;
+		border-color: white;
+	}
+	
+.btn-outline-primary{
+	
+		color: white;
+		background-color: #4286f4;
+	
+	}
+	
+.page-footer
+	{
+			background-image: url("/Images/h.jpg");
+			color: white;
+	
+	}	
+
+.glyphicon.glyphicon-ok{
+    color:  #00C851;
+	background-position: 0px 0px;
+}
+
+.glyphicon.glyphicon-remove{
+    color:  #ff4444;
+}
+.glyphicon.glyphicon-refresh{
+    color:  #33b5e5;
+}	
+	
+.glyphicon.glyphicon-star{
+	color:#ff4c4c;
+	font-size:10px;
+	margin-left:15px;
+	
+}
+
+
+
+
+	

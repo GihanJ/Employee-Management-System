@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Payroll" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be674234-bb1a-424e-abfa-105de8262943">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="479"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="521"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Driver-My Sql"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Dataset1" uuid="7dd77f08-4a90-4fd2-a24e-67835fbbd65b">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT *
+FROM salary_payment
+	inner join employee ON 
+	 salary_payment.`employeeID` = employee.empcode]]>
+	</queryString>
+	<field name="salaryStr" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="salaryStr"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="salaryID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="salaryID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="salarycode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="salarycode"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="employeeID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="employeeID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="bonus" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="bonus"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="allowances" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="allowances"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="deductions" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="deductions"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="etf" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="etf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="epfEmployee" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="epfEmployee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="payDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="payDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="remarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="additions" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="additions"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="epfEmployer" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="epfEmployer"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="overTime" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="overTime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="hourlyRate" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="hourlyRate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="grossSalary" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="grossSalary"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="tax" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="extraLeaves" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="extraLeaves"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="decrements" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="decrements"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="increments" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="increments"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="salary_payment"/>
+	</field>
+	<field name="empstr" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="empstr"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="empID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="empID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="empcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="empcode"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="firstName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="firstName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="lastName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="lastName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="currentAddress" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="currentAddress"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="city" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="city"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="postalCode" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="postalCode"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="martialStatus" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="martialStatus"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="joinedDate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="joinedDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="NIC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NIC"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="dob" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="dob"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="bankAccNo" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="bankAccNo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="basicSalary" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="basicSalary"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="experiencedLevel" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="experiencedLevel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="cv" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="cv"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="designation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="designation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="deptId" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="deptId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="certificate" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="certificate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="homeAddress" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="homeAddress"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="contactNo1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="contactNo1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="contactNo2" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="contactNo2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="profilePhoto" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="profilePhoto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="209" splitType="Stretch">
+			<image>
+				<reportElement x="-14" y="-10" width="583" height="90" uuid="3e498923-b287-4ff4-89a7-4e07b2566e2a"/>
+				<imageExpression><![CDATA["src/main/webapp/Images/pdfimg.PNG"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="132" y="83" width="290" height="20" uuid="1c402c97-dc81-4f47-9cb3-fddebcef9e57"/>
+				<text><![CDATA[No: BX16, Manning Town,Matha Road,Colombo 08,Sri Lanka]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="108" width="140" height="20" uuid="0e75ca86-597e-4910-abcb-6d1cc0b70d5b"/>
+				<text><![CDATA[www.automatedbarcode.net]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="130" width="100" height="20" uuid="eb34216a-688c-437c-ab51-ab86ea27313d"/>
+				<text><![CDATA[++94 11 2683801]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="176" y="166" width="196" height="38" forecolor="#458CFF" backcolor="#458CFF" uuid="b1881bd3-7e40-4ca5-b703-17121c7f77fa"/>
+				<graphicElement>
+					<pen lineWidth="6.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="175" y="170" width="198" height="30" forecolor="#FFFFFF" uuid="c4cc8afe-9896-40bb-8ef4-d809edef1a09"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[SALARY SLIP]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="445" y="81" width="100" height="30" uuid="2c3509c9-4cb1-4bb6-80de-b049186658ab"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="559" splitType="Stretch">
+			<rectangle radius="16">
+				<reportElement x="31" y="136" width="490" height="407" uuid="9708b58e-494f-4cea-89bd-d8100c041407"/>
+				<graphicElement>
+					<pen lineColor="#458CFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="51" y="352" width="100" height="30" uuid="dc2e6def-db08-4e8a-a704-4f003eea0a75"/>
+				<text><![CDATA[Bonus (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="162" y="352" width="83" height="30" uuid="9e9cebab-92a4-481e-8535-6c2da5a41763"/>
+				<textFieldExpression><![CDATA[$F{bonus}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="51" y="382" width="100" height="30" uuid="0479a086-a193-4bc5-8450-f57318070cdd"/>
+				<text><![CDATA[Increments (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="162" y="382" width="83" height="30" uuid="ad830314-16a6-4aa1-99a1-95c0ea2f6f53"/>
+				<textFieldExpression><![CDATA[$F{increments}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="52" y="421" width="100" height="30" forecolor="#0D71FC" uuid="6ecbff7a-8406-4fe8-a433-027795d5211c"/>
+				<text><![CDATA[Additions (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="162" y="421" width="83" height="30" uuid="fddf1628-024d-454a-b128-79f30b22c007"/>
+				<textFieldExpression><![CDATA[$F{additions}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="44" y="275" width="215" height="1" uuid="b7890d80-64f1-40e3-966f-113069423397"/>
+			</line>
+			<line>
+				<reportElement x="155" y="150" width="1" height="155" uuid="269f62ae-b6d9-4f58-9984-ab7fe62abdfd"/>
+			</line>
+			<line>
+				<reportElement x="35" y="470" width="468" height="1" uuid="94e31dad-2c1f-4aa9-babe-ea5a839dcf9e"/>
+			</line>
+			<line>
+				<reportElement x="155" y="342" width="1" height="100" uuid="71a5a279-2c5c-4b31-a487-2cb4057558b6"/>
+			</line>
+			<line>
+				<reportElement x="53" y="416" width="200" height="1" uuid="a04d5d60-57a7-4f6d-a207-b60a534ae53c"/>
+			</line>
+			<staticText>
+				<reportElement x="50" y="286" width="100" height="30" forecolor="#0D71FC" uuid="852ac935-4570-476f-bb49-6011e6b47db2"/>
+				<text><![CDATA[Gross Salary (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="163" y="287" width="88" height="30" uuid="6b6a75cd-acc9-4341-84e6-dc2cecda532a"/>
+				<textFieldExpression><![CDATA[$F{grossSalary}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="240" width="88" height="30" uuid="86536c4d-1e88-4705-aae9-1fa3c7ae33fe"/>
+				<textFieldExpression><![CDATA[$F{allowances}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="50" y="240" width="100" height="30" uuid="6eebc833-95d7-4e0f-bafb-0197dd8d1797"/>
+				<text><![CDATA[Allowances (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="164" y="150" width="86" height="30" uuid="5d08533f-47e2-4601-ad39-9a1ee3bfaa26"/>
+				<textFieldExpression><![CDATA[$F{basicSalary}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="50" y="150" width="100" height="30" uuid="87c41540-b697-44f4-93c6-b6f846324298"/>
+				<text><![CDATA[Basic Salary (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="164" y="180" width="87" height="30" uuid="8fd1b040-4e9d-4f0e-a657-8ef35d384c17"/>
+				<textFieldExpression><![CDATA[$F{overTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="50" y="180" width="100" height="30" uuid="9d8f2657-1252-461a-a3e6-8eed703840ae"/>
+				<text><![CDATA[Over Time (Hours)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="164" y="210" width="87" height="30" uuid="1e142561-eb9f-4aaf-a22d-d2282dd7aba9"/>
+				<textFieldExpression><![CDATA[$F{hourlyRate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="50" y="210" width="100" height="30" uuid="e6d56a10-947a-4f23-b342-eb2eb628ee2f"/>
+				<text><![CDATA[Hourly Rate (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="409" y="181" width="80" height="30" uuid="c5b7b45c-d3a4-4221-b5fd-fb37ea55cd88"/>
+				<textFieldExpression><![CDATA[$F{epfEmployer}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="298" y="181" width="98" height="30" uuid="cd1eb372-d766-4dcc-b4c9-df0254cde704"/>
+				<text><![CDATA[Epf 12% (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="408" y="213" width="82" height="30" uuid="ff8a044c-8c22-4f3a-ae3f-dda6f668f16c"/>
+				<textFieldExpression><![CDATA[$F{etf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="298" y="213" width="100" height="30" uuid="d3ba7a5c-264a-473e-8f51-949affcb2616"/>
+				<text><![CDATA[Etf 3% (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="290" width="80" height="30" uuid="b6f08d9a-47c3-4c27-9f94-10e05570c820"/>
+				<textFieldExpression><![CDATA[$F{epfEmployee}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="290" width="100" height="30" uuid="3570998f-7b15-4d0b-84a8-7e40b097ddd1"/>
+				<text><![CDATA[Epf 8% (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="320" width="80" height="30" uuid="f925eff2-39ee-4131-8ae5-c5dfe8d6abae"/>
+				<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="320" width="100" height="30" uuid="ede34d03-40d5-4781-9b62-85ef10c5fa74"/>
+				<text><![CDATA[Tax (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="350" width="80" height="30" uuid="5551eea5-61a7-4823-b9d6-74f9386d9cc1"/>
+				<textFieldExpression><![CDATA[$F{extraLeaves}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="350" width="100" height="30" uuid="2ebcae3b-4649-4d08-93be-d8851b766e1c"/>
+				<text><![CDATA[Extra Leaves (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="380" width="80" height="30" uuid="6c3ae793-0bef-448a-ac78-fca1f62ebfb6"/>
+				<textFieldExpression><![CDATA[$F{decrements}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="380" width="100" height="30" uuid="60c5d023-7d25-432a-ab29-74de20cfdc43"/>
+				<text><![CDATA[Decrements (Rs)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="408" y="420" width="80" height="30" uuid="1ec220f5-b63a-4e39-9e59-ae5c2aeeef19"/>
+				<textFieldExpression><![CDATA[$F{deductions}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="420" width="100" height="30" forecolor="#0D71FC" uuid="356cf420-7fa3-4c5f-9ec2-1952480f46ef"/>
+				<text><![CDATA[Deductions (Rs)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="404" y="280" width="1" height="160" uuid="8adcf7f9-ff72-4955-856b-4f379e86ee7a"/>
+			</line>
+			<line>
+				<reportElement x="297" y="415" width="200" height="1" uuid="a392bd2f-51fa-42e5-97c8-2e91d5477006"/>
+			</line>
+			<line>
+				<reportElement x="280" y="274" width="223" height="1" uuid="1d5e8df7-b965-4cbb-a655-945cd57c9139"/>
+			</line>
+			<textField>
+				<reportElement x="330" y="510" width="100" height="30" uuid="dd51f132-b9ef-42f1-83e9-078dcf82f2aa"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="510" width="100" height="30" forecolor="#0D71FC" uuid="01986fec-f222-4a82-85b0-f9549f096490"/>
+				<text><![CDATA[Net Salary (Rs)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="270" y="147" width="1" height="353" uuid="e9d2b4c7-e992-435f-9f85-10236f369870"/>
+			</line>
+			<line>
+				<reportElement x="36" y="500" width="468" height="1" uuid="a8132dbe-e941-40f6-b24e-b828e2418c0b"/>
+			</line>
+			<staticText>
+				<reportElement x="51" y="470" width="90" height="30" uuid="596984e0-81ad-4571-9e80-f5353dafc10b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total (Rs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="470" width="100" height="30" uuid="4fedeab0-41c6-4fcd-9e72-f2f5f7ea4a1f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total (Rs)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="155" y="471" width="1" height="29" uuid="a2752d63-c25f-43f8-a462-0a78cbeb82e8"/>
+			</line>
+			<line>
+				<reportElement x="405" y="471" width="1" height="29" uuid="952847ce-2b7f-4ede-9781-dcafe3a06592"/>
+			</line>
+			<rectangle radius="16">
+				<reportElement x="31" y="14" width="490" height="110" uuid="be0e8529-12c5-45da-94da-ab0adfbbb3d2"/>
+				<graphicElement>
+					<pen lineColor="#458CFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="160" y="28" width="100" height="30" uuid="32571e7e-c7a4-4b78-b633-c74bc6e326d4"/>
+				<textFieldExpression><![CDATA[$F{empcode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="44" y="28" width="100" height="27" uuid="11c869d3-9c0c-48fa-a48f-9de86c640175"/>
+				<text><![CDATA[Employee ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="396" y="28" width="54" height="30" uuid="9465aa80-869e-439f-a629-4848c6b81059"/>
+				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="305" y="28" width="83" height="30" uuid="03d2ee82-7038-4d78-9937-b22c23de6fe0"/>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="444" y="28" width="49" height="30" uuid="b450c70e-4b46-4c21-b1c2-837fb450c575"/>
+				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="88" width="100" height="30" uuid="fe66ddb6-eb09-4579-a9dd-4e08cf263a5c"/>
+				<textFieldExpression><![CDATA[$F{salarycode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="44" y="87" width="100" height="30" uuid="bf5c83a1-0b7e-41c8-a7ee-aad6722a5dd6"/>
+				<text><![CDATA[Reference Code]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="58" width="100" height="30" uuid="f741ab3c-937e-44ce-b663-dd3aca354a51"/>
+				<textFieldExpression><![CDATA[$F{currentAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="45" y="55" width="100" height="30" uuid="e68db809-ae3b-464c-a51c-7c2df6272fae"/>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="396" y="58" width="100" height="30" uuid="bc6ddad0-6512-44e1-b834-9b966a0a4035"/>
+				<textFieldExpression><![CDATA[$F{NIC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="305" y="58" width="82" height="30" uuid="c5916a1b-cb2c-46fd-abca-4deb870314f5"/>
+				<text><![CDATA[NIC]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="396" y="88" width="100" height="30" uuid="f945e99f-c433-4082-bdf0-6867969612eb"/>
+				<textFieldExpression><![CDATA[$F{bankAccNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="305" y="88" width="82" height="30" uuid="ed9fbeac-44b8-4c84-87a2-4dccafe95977"/>
+				<text><![CDATA[Bank Account No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="27" width="8" height="14" uuid="3611b311-4c53-4fcd-8123-f2d7256b5852"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="56" width="8" height="14" uuid="3d812305-bc9b-4899-a5c1-a249922dabd5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="86" width="8" height="14" uuid="fe3488ef-8ded-45fa-a1fa-3233e95466ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="28" width="8" height="14" uuid="f890a81d-c46d-4a43-85bd-5de1db07d18c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="58" width="8" height="14" uuid="c50fccfa-6819-4d8a-a340-066855c40abb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="87" width="8" height="14" uuid="d8692b8f-9290-4a31-b976-71d9c3d5016a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="340" y="143" width="118" height="24" forecolor="#FFFFFF" backcolor="#458CFF" uuid="a0765166-5cab-466e-9cce-32d3eb61848c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Company Contribution]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="162" y="471" width="100" height="30" uuid="efc0d3e4-8467-47ce-a2e5-4feae4e70f2d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{additions}.sum( $F{additions},  $F{grossSalary})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="470" width="80" height="30" uuid="81c42054-98bd-41da-858a-f5f2d59ca04a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{deductions}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
