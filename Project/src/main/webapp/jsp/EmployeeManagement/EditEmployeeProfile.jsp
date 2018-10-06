@@ -19,18 +19,30 @@
     <script src="js/jquery.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/EmployeeManagement/EditEmployeeProfile.js"></script>
+	<script src="js/EmployeeManagement/CheckExistenceForEdit.js"></script>
 	<script type="text/javascript" src="js/bootstrapValidator.js"></script>
 	 	
 	<title>EditEmployeeProfile</title>
 </head>
 
 <body>
+	<% 
+		response.setHeader("Cache-Control","no-cache,no-store,must-revalidate"); //HTTP 1.1
+		response.setHeader("Pragma","no-cache"); //HTTP 1.0
+		response.setHeader("Expires","0");  //Proxies
+
+		if(session.getAttribute("USER")== null)
+		{
+			response.sendRedirect("signin");
+		}
+		
+	%>
 	<div class="container-fluid" style="height: 2000px">
 		<div class="row" >
 			<div class="header">
 				<img src="Images/logo.png" style="width:12%;margin-left: 2%">
- 				<font style="font-family: Good Times; font-size: 230%"><span style="color: white;margin-left: 2%;marg">Automated Barcode Solutions</span></font>
- 
+ 				<font style="font-family: Good Times; font-size: 230%"><span style="color: white;margin-left: 2%;">Automated Barcode Solutions</span></font>
+ 				<a href="signout"><font style="font-family: Good Times; font-size: 100%"><span style="color: white;margin-left: 90%;">Sign Out</span></font></a>
  					<div class="navbar">
 						<div class="dropdown">
   							<button class="dropbtn dropdown-toggle"><a href="dash" style="color: black;text-decoration: none;">Employee Management</a></button>
@@ -132,7 +144,7 @@
 			</div>
 		</div>
 	
-		<form:form method="POST" action="update" modelAttribute="employee" id="validateEditForm">
+		<form:form method="POST" action="update" modelAttribute="employee" id="validateEditForm" name="editProfile">
 		<div class="row">
 			<div class="col-md-5 offset-1">
 
@@ -142,7 +154,7 @@
 					</div>
 				</div>
 				
-				<div class="row" style=" margin-top: 68px">
+				<div class="row" style=" margin-top: 95px">
 					<div class="col my-5 text-center"><Span style="text-decoration: underline;"><h4>Contact Information</h4></Span></div>
 				</div>
 
@@ -202,14 +214,14 @@
 				<div class="form-group row">
 					<label for="bikeNo" class="col-md-5 col-form-label ml-4" >Assigned Bike No</label>
     				<div class="col-md-6">
-      					<form:input type="text" class="form-control" name="bikeNo" path="bikeNo" placeholder="System Gen"/>
+      					<form:input type="text" class="form-control" name="bikeNo" path="bikeNo" onblur="checkBikeExist()"   placeholder="System Gen"/><span id="bike"></span>
       				</div>
       			</div>
 
 				<div class="form-group row">
 					<label for="VehicleNo" class="col-md-5 col-form-label ml-4" >Vehicle No</label>
    					 <div class="col-md-6">
-      					<form:input type="text" class="form-control" path="VehicleNo"  name="VehicleNo" placeholder="System Gen"/>
+      					<form:input type="text" class="form-control" path="VehicleNo"  name="VehicleNo" onblur="checkVehicleExist()" placeholder="System Gen"/><span id="vehicle"></span>
       				</div>
       			</div>
 
@@ -250,7 +262,7 @@
     			<div class="form-group row">
 					<label for="NIC" class="col-md-5 col-form-label ml-4">N.I.C NO</label>
     				<div class="col-md-6">
-      					<form:input type="text" class="form-control" path="NIC" name="NIC" placeholder="System Gen"/>
+      					<form:input type="text" class="form-control" path="NIC" name="NIC" onblur="checkNICExist()" placeholder="System Gen"/><span id="nic"></span>
       				</div>
       			</div>
     
@@ -268,6 +280,30 @@
     					</div>
     				</div>
     			</div>
+    			
+    			<div class="form-group row">
+					<label for="bank" class="col-md-5 col-form-label ml-4">Bank</label>
+      				<div class="col-md-6">
+      					<div class="input-group">
+  							<select class="custom-select" id="bank" name="bank" >
+								 <option value="Commercial Bank" selected>Commercial Bank</option>
+								 <option value="Bank of Ceylon">Bank of Ceylon</option>
+								 <option value="Cargills Bank">Cargills Bank</option>
+								 <option value="CDB">CDB</option>
+								 <option value="Central Finance">Central Finance</option>
+								 <option value="DFCC Bank">DFCC Bank</option>
+								 <option value="Hatton National Bank">Hatton National Bank</option>
+								 <option value="HSBC">HSBC</option>
+								 <option value="Nations Trust Bank">Nations Trust Bank</option>
+								 <option value="NDB Bank">NDB Bank</option>
+								 <option value="NSB">NSB</option>
+								 <option value="People's Bank">People's Bank</option>
+								 <option value="Sampath Bank">Sampath Bank</option>
+								 <option value="Seylan Bank">Seylan Bank</option>
+							</select>
+    					</div>
+    				</div>
+    			</div>
     
 				<div class="form-group row">
 					<label for="bankAccountNo" class="col-md-5 col-form-label ml-4">Bank Account Number</label>
@@ -276,7 +312,7 @@
       				</div>
       			</div>
 
-				<div class="row" style="margin-top: 44px">
+				<div class="row">
 					<div class="col my-5  text-center"><Span style="text-decoration: underline;"><h4>Company Information</h4></Span></div>
 				</div>
 				
@@ -290,7 +326,7 @@
 				<div class="form-group row">
 					<label for="basicSalary" class="col-md-5 col-form-label ml-4">Basic Salary</label>
     				<div class="col-md-6">
-      					<form:input type="text" class="form-control" path="basicSalary" name="basicSalary"/>
+      					<form:input type="number" step="0.01" min="1000" class="form-control" path="basicSalary" name="basicSalary"/>
     				</div>
     			</div>
     			
@@ -314,7 +350,7 @@
   				</div>
   				
   				<div class="col">
-	      				<input  type="hidden" name="profilePhoto" class="form-control" id="photo" >
+	      				<form:input  type="hidden" name="profilePhoto" path="profilePhoto" class="form-control" id="photo" />
 	      		</div>
   				
    			 	<div class="form-group row">
@@ -324,14 +360,14 @@
     				</div>
     			</div>
 		
-				<div class="row" style="margin-top: 176px">
+				<div class="row" style="margin-top: 120px">
 					<div class="col my-5 text-center"><Span style="text-decoration: underline;"><h4>System Login Information</h4></Span></div>
 				</div>
 
 				<div class="form-group row">
 					<label for="userName" class="col-md-5 col-form-label ml-4">User Name</label>
     				<div class="col-md-6">
-      					<form:input type="text" class="form-control" path="userName" name="userName"/>
+      					<form:input type="text" class="form-control" onblur="checkExist()" path="userName" name="userName"/><span id="isE"></span>
     				</div>
     			</div>
     

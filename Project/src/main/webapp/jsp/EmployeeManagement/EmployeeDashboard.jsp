@@ -1,7 +1,9 @@
 <%@page import="com.example.demo.controller.EmployeeManagement.DashboardController"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page isELIgnored="false" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +20,23 @@
 </head>
 
 <body>
-	<div class="container-fluid" style="height: 1500px">
+	<% 
+		response.setHeader("Cache-Control","no-cache,no-store,must-revalidate"); //HTTP 1.1
+		response.setHeader("Pragma","no-cache"); //HTTP 1.0
+		response.setHeader("Expires","0");  //Proxies
+
+		if(session.getAttribute("USER")== null)
+		{
+			response.sendRedirect("signin");
+		}
+		
+	%>
+	<div class="container-fluid" style="height: 1700px">
 		<div class="row" >
 			<div class="header">
 				<img src="Images/logo.png" style="width:12%;margin-left: 2%">
  				<font style="font-family: Good Times; font-size: 230%"><span style="color: white;margin-left: 2%;marg">Automated Barcode Solutions</span></font>
- 
+ 				<a href="signout"><font style="font-family: Good Times; font-size: 100%"><span style="color: white;margin-left: 90%;">Sign Out</span></font></a>
  					<div class="navbar">
 						<div class="dropdown">
   							<button class="dropbtn dropdown-toggle"><a href="dash" style="color: black;text-decoration: none;">Employee Management</a></button>
@@ -124,8 +137,35 @@
 				</div>
 			</div>
 		</div>
+	<div class="row text-center" style="margin-top: 110px">
+	<div class="col-md-10">
+		<form:form  class="form-horizontal" >
+<table border="2" width="100%" cellpadding="2" style="margin-left: 110px">
+<tr><th>Employee ID</th><th>Contact Number</th><th>Email</th><th>Availability</th></tr>  
+
+   <c:forEach var="employee" items="${TechnicianList}"> 
+   <tr>  
+   <td>${employee.employeeCode}</td>  
+   <td>${employee.contactNo1}</td> 
+   <td>${employee.email}</td>  
+   <td>${employee.availability}</td>
+    
+   <% //<td><a href="/editProfileByID/${employee.employeeCode}">Profile</a></td>  %> 
+   </tr>  
+   </c:forEach> 
+   
+   
+   </table>  
+   <br/>
+   
+  
+   </form:form>
+	</div>
+	</div>
 	
-		<div class="row" style="margin-top: 150px;height: 300px">
+	
+	
+		<div class="row" style="margin-top: 80px;height: 300px">
 			<div class="col-md-5" style="background-color: rgba(255,255,255,0.8);margin-left: 90px;border-radius: 30px">
 				<div id="canvas-holder">
 					<canvas id="pie-chart"></canvas>

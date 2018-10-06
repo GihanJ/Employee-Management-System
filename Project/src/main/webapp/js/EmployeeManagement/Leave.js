@@ -1,8 +1,4 @@
 	
-	$(document).ready(function() 
-	{
-		$('#leaveStartDate,#leaveEndDate').datetimepicker();
-	});
 
 	$(document).ready(function() 
 	{
@@ -133,3 +129,10 @@
 			
 		});
 	});
+	
+	
+	
+				
+	
+
+	

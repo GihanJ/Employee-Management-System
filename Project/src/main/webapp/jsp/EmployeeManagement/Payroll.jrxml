@@ -180,7 +180,7 @@ FROM salary_payment
 		<property name="com.jaspersoft.studio.field.label" value="dob"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
-	<field name="bankAccNo" class="java.lang.Integer">
+	<field name="bankAccNo" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="bankAccNo"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
@@ -216,11 +216,11 @@ FROM salary_payment
 		<property name="com.jaspersoft.studio.field.label" value="homeAddress"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
-	<field name="contactNo1" class="java.lang.Integer">
+	<field name="contactNo1" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="contactNo1"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
-	<field name="contactNo2" class="java.lang.Integer">
+	<field name="contactNo2" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="contactNo2"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
@@ -280,7 +280,7 @@ FROM salary_payment
 				<reportElement x="51" y="352" width="100" height="30" uuid="dc2e6def-db08-4e8a-a704-4f003eea0a75"/>
 				<text><![CDATA[Bonus (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="162" y="352" width="83" height="30" uuid="9e9cebab-92a4-481e-8535-6c2da5a41763"/>
 				<textFieldExpression><![CDATA[$F{bonus}]]></textFieldExpression>
 			</textField>
@@ -288,7 +288,7 @@ FROM salary_payment
 				<reportElement x="51" y="382" width="100" height="30" uuid="0479a086-a193-4bc5-8450-f57318070cdd"/>
 				<text><![CDATA[Increments (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="162" y="382" width="83" height="30" uuid="ad830314-16a6-4aa1-99a1-95c0ea2f6f53"/>
 				<textFieldExpression><![CDATA[$F{increments}]]></textFieldExpression>
 			</textField>
@@ -296,7 +296,7 @@ FROM salary_payment
 				<reportElement x="52" y="421" width="100" height="30" forecolor="#0D71FC" uuid="6ecbff7a-8406-4fe8-a433-027795d5211c"/>
 				<text><![CDATA[Additions (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="162" y="421" width="83" height="30" uuid="fddf1628-024d-454a-b128-79f30b22c007"/>
 				<textFieldExpression><![CDATA[$F{additions}]]></textFieldExpression>
 			</textField>
@@ -319,11 +319,11 @@ FROM salary_payment
 				<reportElement x="50" y="286" width="100" height="30" forecolor="#0D71FC" uuid="852ac935-4570-476f-bb49-6011e6b47db2"/>
 				<text><![CDATA[Gross Salary (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="163" y="287" width="88" height="30" uuid="6b6a75cd-acc9-4341-84e6-dc2cecda532a"/>
 				<textFieldExpression><![CDATA[$F{grossSalary}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="164" y="240" width="88" height="30" uuid="86536c4d-1e88-4705-aae9-1fa3c7ae33fe"/>
 				<textFieldExpression><![CDATA[$F{allowances}]]></textFieldExpression>
 			</textField>
@@ -331,7 +331,7 @@ FROM salary_payment
 				<reportElement x="50" y="240" width="100" height="30" uuid="6eebc833-95d7-4e0f-bafb-0197dd8d1797"/>
 				<text><![CDATA[Allowances (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="164" y="150" width="86" height="30" uuid="5d08533f-47e2-4601-ad39-9a1ee3bfaa26"/>
 				<textFieldExpression><![CDATA[$F{basicSalary}]]></textFieldExpression>
 			</textField>
@@ -347,7 +347,7 @@ FROM salary_payment
 				<reportElement x="50" y="180" width="100" height="30" uuid="9d8f2657-1252-461a-a3e6-8eed703840ae"/>
 				<text><![CDATA[Over Time (Hours)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="164" y="210" width="87" height="30" uuid="1e142561-eb9f-4aaf-a22d-d2282dd7aba9"/>
 				<textFieldExpression><![CDATA[$F{hourlyRate}]]></textFieldExpression>
 			</textField>
@@ -355,7 +355,7 @@ FROM salary_payment
 				<reportElement x="50" y="210" width="100" height="30" uuid="e6d56a10-947a-4f23-b342-eb2eb628ee2f"/>
 				<text><![CDATA[Hourly Rate (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="409" y="181" width="80" height="30" uuid="c5b7b45c-d3a4-4221-b5fd-fb37ea55cd88"/>
 				<textFieldExpression><![CDATA[$F{epfEmployer}]]></textFieldExpression>
 			</textField>
@@ -363,7 +363,7 @@ FROM salary_payment
 				<reportElement x="298" y="181" width="98" height="30" uuid="cd1eb372-d766-4dcc-b4c9-df0254cde704"/>
 				<text><![CDATA[Epf 12% (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="408" y="213" width="82" height="30" uuid="ff8a044c-8c22-4f3a-ae3f-dda6f668f16c"/>
 				<textFieldExpression><![CDATA[$F{etf}]]></textFieldExpression>
 			</textField>
@@ -371,7 +371,7 @@ FROM salary_payment
 				<reportElement x="298" y="213" width="100" height="30" uuid="d3ba7a5c-264a-473e-8f51-949affcb2616"/>
 				<text><![CDATA[Etf 3% (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="410" y="290" width="80" height="30" uuid="b6f08d9a-47c3-4c27-9f94-10e05570c820"/>
 				<textFieldExpression><![CDATA[$F{epfEmployee}]]></textFieldExpression>
 			</textField>
@@ -379,7 +379,7 @@ FROM salary_payment
 				<reportElement x="300" y="290" width="100" height="30" uuid="3570998f-7b15-4d0b-84a8-7e40b097ddd1"/>
 				<text><![CDATA[Epf 8% (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="410" y="320" width="80" height="30" uuid="f925eff2-39ee-4131-8ae5-c5dfe8d6abae"/>
 				<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
 			</textField>
@@ -387,7 +387,7 @@ FROM salary_payment
 				<reportElement x="300" y="320" width="100" height="30" uuid="ede34d03-40d5-4781-9b62-85ef10c5fa74"/>
 				<text><![CDATA[Tax (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="411" y="350" width="80" height="30" uuid="5551eea5-61a7-4823-b9d6-74f9386d9cc1"/>
 				<textFieldExpression><![CDATA[$F{extraLeaves}]]></textFieldExpression>
 			</textField>
@@ -395,7 +395,7 @@ FROM salary_payment
 				<reportElement x="300" y="350" width="100" height="30" uuid="2ebcae3b-4649-4d08-93be-d8851b766e1c"/>
 				<text><![CDATA[Extra Leaves (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="411" y="380" width="80" height="30" uuid="6c3ae793-0bef-448a-ac78-fca1f62ebfb6"/>
 				<textFieldExpression><![CDATA[$F{decrements}]]></textFieldExpression>
 			</textField>
@@ -403,7 +403,7 @@ FROM salary_payment
 				<reportElement x="300" y="380" width="100" height="30" uuid="60c5d023-7d25-432a-ab29-74de20cfdc43"/>
 				<text><![CDATA[Decrements (Rs)]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="408" y="420" width="80" height="30" uuid="1ec220f5-b63a-4e39-9e59-ae5c2aeeef19"/>
 				<textFieldExpression><![CDATA[$F{deductions}]]></textFieldExpression>
 			</textField>
@@ -420,7 +420,7 @@ FROM salary_payment
 			<line>
 				<reportElement x="280" y="274" width="223" height="1" uuid="1d5e8df7-b965-4cbb-a655-945cd57c9139"/>
 			</line>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="330" y="510" width="100" height="30" uuid="dd51f132-b9ef-42f1-83e9-078dcf82f2aa"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
@@ -555,12 +555,12 @@ FROM salary_payment
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Company Contribution]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="162" y="471" width="100" height="30" uuid="efc0d3e4-8467-47ce-a2e5-4feae4e70f2d"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{additions}.sum( $F{additions},  $F{grossSalary})]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="410" y="470" width="80" height="30" uuid="81c42054-98bd-41da-858a-f5f2d59ca04a"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{deductions}]]></textFieldExpression>

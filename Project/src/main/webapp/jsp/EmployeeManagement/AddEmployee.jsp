@@ -1,3 +1,9 @@
+
+
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,7 +22,10 @@
     <script src="js/jquery.js"></script>
     <script src="js/proper.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<script src="js/EmployeeManagement/AddEmployee.js"></script>
+	<script src="js/EmployeeManagement/AddDeo.js"></script>
+	<script src="js/EmployeeManagement/AddDriver.js"></script>
+	<script src="js/EmployeeManagement/AddTechnician.js"></script>
+	<script src="js/EmployeeManagement/CheckExistence.js"></script>
 	<script type="text/javascript" src="js/bootstrapValidator.js"></script>
 	<script src="js/jquery.datetimepicker.full.js"></script>	
 		
@@ -24,12 +33,23 @@
 </head>
 
 <body>
+	<% 
+		response.setHeader("Cache-Control","no-cache,no-store,must-revalidate"); //HTTP 1.1
+		response.setHeader("Pragma","no-cache"); //HTTP 1.0
+		response.setHeader("Expires","0");  //Proxies
+
+		if(session.getAttribute("USER")== null)
+		{
+			response.sendRedirect("signin");
+		}
+		
+	%>
 	<div class="container-fluid" style="height: 2000px">
 		<div class="row" >
 			<div class="header">
 				<img src="Images/logo.png" style="width:12%;margin-left: 2%">
- 				<font style="font-family: Good Times; font-size: 230%"><span style="color: white;margin-left: 2%;marg">Automated Barcode Solutions</span></font>
- 
+ 				<font style="font-family: Good Times; font-size: 230%"><span style="color: white;margin-left: 2%;">Automated Barcode Solutions</span></font>
+ 				<a href="signout"><font style="font-family: Good Times; font-size: 100%"><span style="color: white;margin-left: 90%;">Sign Out</span></font></a>
  					<div class="navbar">
 						<div class="dropdown">
   							<button class="dropbtn dropdown-toggle"><a href="dash" style="color: black;text-decoration: none;">Employee Management</a></button>
@@ -157,7 +177,7 @@
 	
 		<div class="form f1">
 			<div class="form-container">
-				<form:form method="POST"  action="registerdeo"  modelAttribute="employee"  id="validateForm1">
+				<form:form method="POST"  action="registerdeo"  modelAttribute="employee"  id="validateForm1" name="form1">
 				
 				<div class="row">
 					<div class="col-md-6  my-5 text-center"><Span style="text-decoration: underline;"><h4>Personal Information</h4></Span></div>
@@ -191,7 +211,7 @@
    						<div class="form-group row">
     						<label for="datetime1" class="col-md-5 col-form-label ml-3">Birth Date<span class="glyphicon glyphicon-star"></span></label>
     						<div class="col-md-6 ml-4">
-      							<form:input type="date" name="birthDate" path="birthDate" class="form-control" placeholder="Date Of Birth"/>
+      							<form:input type="date" name="birthDate" id="birthDate" path="birthDate" class="form-control" placeholder="Date Of Birth"/>
     					 	</div>
     					</div>
     					
@@ -214,7 +234,7 @@
    						<div class="form-group row">
 							<label for="NIC" class="col-md-5 col-form-label ml-3">N.I.C NO<span class="glyphicon glyphicon-star"></span></label>
     						<div class="col-md-6 ml-4">
-      							<input type="text" name="NIC" class="form-control" id="NIC" placeholder="960662770V"/>
+      							<input type="text" name="NIC" class="form-control" id="NIC" onblur="checkNICExist()" placeholder="960662770V"/><span id="nic"></span>
 				 			</div>
 				 		</div>
       
@@ -231,11 +251,36 @@
     							</div>
     						</div>
     					</div>
+    					
+    					<div class="form-group row">
+							<label for="bank" class="col-md-5 col-form-label ml-3">Bank<span class="glyphicon glyphicon-star"></span></label>
+      						<div class="col-md-6 ml-4">
+      							<div class="input-group">
+  									<select class="custom-select" id="bank" name="bank" >
+								    	<option value="Commercial Bank" selected>Commercial Bank</option>
+										<option value="Bank of Ceylon">Bank of Ceylon</option>
+									    <option value="Cargills Bank">Cargills Bank</option>
+									    <option value="CDB">CDB</option>
+									    <option value="Central Finance">Central Finance</option>
+									    <option value="DFCC Bank">DFCC Bank</option>
+									    <option value="Hatton National Bank">Hatton National Bank</option>
+									    <option value="HSBC">HSBC</option>
+									  	<option value="Nations Trust Bank">Nations Trust Bank</option>
+									  	<option value="NDB Bank">NDB Bank</option>
+									  	<option value="NSB">NSB</option>
+									  	<option value="People's Bank">People's Bank</option>
+									  	<option value="Sampath Bank">Sampath Bank</option>
+									  	<option value="Seylan Bank">Seylan Bank</option>
+								
+								  	</select>
+    							</div>
+    						</div>
+    					</div>
     
 						 <div class="form-group row">
 							<label for="bankAccountNo" class="col-md-5 col-form-label ml-3">Bank Account Number<span class="glyphicon glyphicon-star"></span></label>
   							<div class="col-md-6 ml-4">
-      							<input type="number" name="bankAccountNo" class="form-control" id="bankAccountNo" />
+      							<form:input type="number" name="bankAccountNo" path="bankAccountNo" class="form-control" id="bankAccountNo" />
 							</div>
 						</div>
 					</div>
@@ -285,7 +330,7 @@
 						<div class="form-group row">
 	      					<label for="basicSalary" class="col-md-5 col-form-label ml-3">Basic Salary<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="text" name="basicSalary" class="form-control" id="basicSalary"/>
+	      						<input type="number" step="0.01" min="1000" name="basicSalary" class="form-control" id="basicSalary"/>
 							</div>
 	    				</div>
     
@@ -332,7 +377,7 @@
 						<div class="form-group row">
 	    					<label for="datetime2" class="col-md-5 col-form-label ml-3">Joined Date<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="date" class="form-control" name="joinedDate" />
+	      						<input type="date" class="form-control" id="joinedDate" name="joinedDate" />
 	    					</div>
 	    				</div>
     				</div>
@@ -403,10 +448,10 @@
 						<div class="form-group row">
 	      					<label for="uName" class="col-md-5 col-form-label ml-3">User Name<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="text"  name="userName" class="form-control" id="uName"/>
+	      						<input type="text"  name="userName" class="form-control" id="userName" onblur = "checkExist()" /> <span id="isE"></span>
 	    					</div>
 	    				</div>
-    
+	    				
 	    				<div class="form-group row">
 	      					<label for="pass" class="col-md-5 col-form-label ml-3">Password<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
@@ -433,7 +478,7 @@
   		
   		<div class="form f2">
 			<div class="form-container">
-				<form:form method="POST"  action="registerdriver"  modelAttribute="employee"  id="validateForm2">
+				<form:form method="POST"  action="registerdriver"  modelAttribute="employee"  id="validateForm2" name="form2">
 				
 				<div class="row">
 					<div class="col-md-6  my-5 text-center"><Span style="text-decoration: underline;"><h4>Personal Information</h4></Span></div>
@@ -490,7 +535,7 @@
    						<div class="form-group row">
 							<label for="NIC" class="col-md-5 col-form-label ml-3">N.I.C NO<span class="glyphicon glyphicon-star"></span></label>
     						<div class="col-md-6 ml-4">
-      							<input type="text" name="NIC" class="form-control" id="NIC" placeholder="960662770V"/>
+      							<input type="text" name="NIC" class="form-control" id="NIC" onblur="checkNICDriverExist()" placeholder="960662770V"/> <span id="nicd"></span>
 				 			</div>
 				 		</div>
       
@@ -508,6 +553,32 @@
     						</div>
     					</div>
     
+    					<div class="form-group row">
+							<label for="bank" class="col-md-5 col-form-label ml-3">Bank<span class="glyphicon glyphicon-star"></span></label>
+      						<div class="col-md-6 ml-4">
+      							<div class="input-group">
+  									<select class="custom-select" id="bank" name="bank" >
+								    	<option value="Commercial Bank" selected>Commercial Bank</option>
+										<option value="Bank of Ceylon">Bank of Ceylon</option>
+									    <option value="Cargills Bank">Cargills Bank</option>
+									    <option value="CDB">CDB</option>
+									    <option value="Central Finance">Central Finance</option>
+									    <option value="DFCC Bank">DFCC Bank</option>
+									    <option value="Hatton National Bank">Hatton National Bank</option>
+									    <option value="HSBC">HSBC</option>
+									  	<option value="Nations Trust Bank">Nations Trust Bank</option>
+									  	<option value="NDB Bank">NDB Bank</option>
+									  	<option value="NSB">NSB</option>
+									  	<option value="People's Bank">People's Bank</option>
+									  	<option value="Sampath Bank">Sampath Bank</option>
+									  	<option value="Seylan Bank">Seylan Bank</option>
+								
+								  	</select>
+    							</div>
+    						</div>
+    					</div>
+    					
+    					
 						<div class="form-group row">
 							<label for="bankAccountNo" class="col-md-5 col-form-label ml-3">Bank Account Number<span class="glyphicon glyphicon-star"></span></label>
   							<div class="col-md-6 ml-4">
@@ -561,7 +632,7 @@
 						<div class="form-group row">
 	      					<label for="basicSalary" class="col-md-5 col-form-label ml-3">Basic Salary<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="text" name="basicSalary" class="form-control" id="basicSalary"/>
+	      						<input type="number" step="0.01" min="1000" name="basicSalary" class="form-control" id="basicSalary"/>
 							</div>
 	    				</div>
     
@@ -609,7 +680,7 @@
 						<div class="form-group row">
 	    					<label for="datetime2" class="col-md-5 col-form-label ml-3">Joined Date<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="date" class="form-control" name="joinedDate" />
+	      						<input type="date" class="form-control" name="joinedDate" id="joinedDate"/>
 	    					</div>
 	    				</div>
     				</div>
@@ -691,7 +762,7 @@
 	    				<div class="form-group row">
 	      					<label for="VehicleNo" class="col-md-5 col-form-label ml-3">Vehicle Reg No<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="text" class="form-control" name="VehicleNo" id="VehicleNo"/>
+	      						<input type="text" class="form-control" name="VehicleNo" id="VehicleNo" onblur="checkVehicleExist()"/><span id="vehicle"></span>
 	    					</div>
 	    				</div>
     				
@@ -700,11 +771,11 @@
 	  							<div class="col-md-6 ml-4">
 	  								<div class="input-group">
 		   								<div class="custom-control custom-radio custom-control-inline mt-2">
-											<input type="radio" id="customRadioInline5" value="In" name="availability" class="custom-control-input"/>
+											<input type="radio" id="customRadioInline5" value="1" name="availability" class="custom-control-input"/>
 		  									<label class="custom-control-label " for="customRadioInline5">In</label>
 										</div>
 										<div class="custom-control custom-radio custom-control-inline mt-2">
-											<input type="radio" id="customRadioInline6" value="Out" name="availability" class="custom-control-input"/>
+											<input type="radio" id="customRadioInline6" value="0" name="availability" class="custom-control-input"/>
 		  									<label class="custom-control-label " for="customRadioInline6">Out</label>
 										</div>
 	    							</div>
@@ -731,7 +802,7 @@
   
 	  	<div class="form f3">
 			<div class="form-container">
-				<form:form method="POST"  action="registerTechnician"  modelAttribute="employee"  id="validateForm3">
+				<form:form method="POST"  action="registerTechnician"  modelAttribute="employee"  id="validateForm3" name="form3">
 			
 				<div class="row">
 					<div class="col-md-6  my-5 text-center"><Span style="text-decoration: underline;"><h4>Personal Information</h4></Span></div>
@@ -765,7 +836,7 @@
    						<div class="form-group row">
     						<label for="datetime1" class="col-md-5 col-form-label ml-3">Birth Date<span class="glyphicon glyphicon-star"></span></label>
     						<div class="col-md-6 ml-4">
-      							<form:input type="date" name="birthDate" path="birthDate" class="form-control" placeholder="Date Of Birth"/>
+      							<form:input type="date" name="birthDate" path="birthDate" id="birthDate" class="form-control" placeholder="Date Of Birth"/>
     					 	</div>
     					</div>
     					
@@ -788,7 +859,7 @@
    						<div class="form-group row">
 							<label for="NIC" class="col-md-5 col-form-label ml-3">N.I.C NO<span class="glyphicon glyphicon-star"></span></label>
     						<div class="col-md-6 ml-4">
-      							<input type="text" name="NIC" class="form-control" id="NIC" placeholder="960662770V"/>
+      							<input type="text" name="NIC" class="form-control" id="NIC" placeholder="960662770V" onblur="checkNICTechnicianExist()"/><span id ="nict"></span>
 				 			</div>
 				 		</div>
       
@@ -805,6 +876,33 @@
     							</div>
     						</div>
     					</div>
+    
+    					<div class="form-group row">
+							<label for="bank" class="col-md-5 col-form-label ml-3">Bank<span class="glyphicon glyphicon-star"></span></label>
+      						<div class="col-md-6 ml-4">
+      							<div class="input-group">
+  									<select class="custom-select" id="bank" name="bank" >
+								    	<option value="Commercial Bank" selected>Commercial Bank</option>
+										<option value="Bank of Ceylon">Bank of Ceylon</option>
+									    <option value="Cargills Bank">Cargills Bank</option>
+									    <option value="CDB">CDB</option>
+									    <option value="Central Finance">Central Finance</option>
+									    <option value="DFCC Bank">DFCC Bank</option>
+									    <option value="Hatton National Bank">Hatton National Bank</option>
+									    <option value="HSBC">HSBC</option>
+									  	<option value="Nations Trust Bank">Nations Trust Bank</option>
+									  	<option value="NDB Bank">NDB Bank</option>
+									  	<option value="NSB">NSB</option>
+									  	<option value="People's Bank">People's Bank</option>
+									  	<option value="Sampath Bank">Sampath Bank</option>
+									  	<option value="Seylan Bank">Seylan Bank</option>
+								
+								  	</select>
+    							</div>
+    						</div>
+    					</div>
+    
+    
     
 						 <div class="form-group row">
 							<label for="bankAccountNo" class="col-md-5 col-form-label ml-3">Bank Account Number<span class="glyphicon glyphicon-star"></span></label>
@@ -859,7 +957,7 @@
 						<div class="form-group row">
 	      					<label for="basicSalary" class="col-md-5 col-form-label ml-3">Basic Salary<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="text" name="basicSalary" class="form-control" id="basicSalary"/>
+	      						<input type="number" step="0.01" min="1000"  name="basicSalary" class="form-control" id="basicSalary"/>
 							</div>
 	    				</div>
     
@@ -907,7 +1005,7 @@
 						<div class="form-group row">
 	    					<label for="datetime2" class="col-md-5 col-form-label ml-3">Joined Date<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="date" class="form-control" name="joinedDate" />
+	      						<input type="date" class="form-control" name="joinedDate" id="joinedDate" />
 	    					</div>
 	    				</div>
     				</div>
@@ -990,7 +1088,7 @@
 	    				<div class="form-group row">
 	      					<label for="bikeNo" class="col-md-5 col-form-label ml-3">Assigned Bike No<span class="glyphicon glyphicon-star"></span></label>
 	    					<div class="col-md-6 ml-4">
-	      						<input type="text" class="form-control" name="bikeNo" id="bikeNo"/>
+	      						<input type="text" class="form-control" name="bikeNo" id="bikeNo" onblur="checkBikeExist()"/><span id="bike"></span>
 	    					</div>
 	    				</div>
     				
@@ -999,11 +1097,11 @@
 	  							<div class="col-md-6 ml-4">
 	  								<div class="input-group">
 		   								<div class="custom-control custom-radio custom-control-inline mt-2">
-											<input type="radio" id="customRadioInline9" value="In" name="availability" class="custom-control-input"/>
+											<input type="radio" id="customRadioInline9" value="1" name="availability" class="custom-control-input"/>
 		  									<label class="custom-control-label " for="customRadioInline9">In</label>
 										</div>
 										<div class="custom-control custom-radio custom-control-inline mt-2">
-											<input type="radio" id="customRadioInline10" value="Out" name="availability" class="custom-control-input"/>
+											<input type="radio" id="customRadioInline10" value="0" name="availability" class="custom-control-input"/>
 		  									<label class="custom-control-label " for="customRadioInline10">Out</label>
 										</div>
 	    							</div>

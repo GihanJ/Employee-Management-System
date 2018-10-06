@@ -2,11 +2,8 @@ package com.example.demo.model.EmployeeManagement;
 
 import java.io.Serializable;
 import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-import javax.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -17,19 +14,63 @@ public class Employee implements Serializable {
 	
 	@Id
 	private int employeeId;
-	
-	//@NotEmpty(message="First Name field cannot be empty")
 	private String firstName;
-	
-	//@NotEmpty(message="Last Name field cannot be empty")
 	private String lastName;
-	
 	private Date birthDate;
-	
 	private Date leavingDate;
-	
 	private String employeeCode;
-	
+	private String reason;
+	private String resignation;
+	private String specialNotes;
+	private String gender;
+	private String NIC;
+	private String maritalStatus;
+	private long bankAccountNo;
+	private String currentAddress;
+	private String homeAddress;
+	private String city;
+	private int postalCode;
+	private long contactNo1;
+	private long contactNo2;
+	private String email;
+	private String designation;
+	private int experiencedLevel;
+	private double basicSalary;
+	private String certificates;
+	private String cv;
+	private int departmentId;
+	private Date joinedDate;
+	private String bank;
+	private String leaveType;
+	private String leaveReason;
+	private Date leaveRequestedDate;
+	private String leaveStartDate;
+	private String leaveEndDate;
+	private double bonus;
+	private double allowances;
+	private double deductions;
+	private double total;
+	private double etf;
+	private double epfEmployee;
+	private double epfEmployer;
+	private Date payDate;
+	private String remarks;
+	private double additions;
+	private int overTime;
+	private double hourlyRate;
+	private double grossSalary;
+	private double tax;
+	private double extraLeaves;
+	private double decrements;
+	private double increments;
+	private String departmentName;
+	private String profilePhoto;
+	private String drivingLicense;
+	private String bikeNo;
+	private String userName;
+	private String password;
+	private String VehicleNo;
+	private String availability;
 	
 	
 	public String getEmployeeCode() {
@@ -62,61 +103,6 @@ public class Employee implements Serializable {
 	public void setSpecialNotes(String specialNotes) {
 		this.specialNotes = specialNotes;
 	}
-	private String reason;
-	
-	private String resignation;
-	
-	private String specialNotes;
-	
-	//@NotEmpty(message="Gender field cannot be empty")
-	private String gender;
-	
-	//@NotNull(message="N.I.C field cannot be empty") 
-	private String NIC;
-	
-	//@NotEmpty(message="Marital status field cannot be empty")
-	private String maritalStatus;
-	
-	//@NotNull(message="Bank Account field cannot be empty")
-	private int bankAccountNo;
-	
-	//@NotEmpty(message="Current Address field cannot be empty")
-	private String currentAddress;
-	
-	//@NotEmpty(message="Home Address field cannot be empty")
-	private String homeAddress;
-	
-	//@NotEmpty(message="City field cannot be empty")
-	private String city;
-	
-	//@NotNull(message="Postal Code field cannot be empty")
-	private int postalCode;
-	
-	//@NotNull(message="Contact No field cannot be empty")
-	private int contactNo1;
-	
-	private int contactNo2;
-	
-	//@Email @NotEmpty(message="Email field cannot be empty")
-	private String email;
-	
-	//@NotEmpty(message="Designation field cannot be empty")
-	private String designation;
-	
-	//@NotNull(message="Experienced Level  cannot be empty")
-	private int experiencedLevel;
-	
-	//@NotNull(message="Basic Salary field cannot be empty")
-	private double basicSalary;
-	
-	//@NotEmpty(message="Certificates field cannot be empty")
-	private String certificates;
-	
-	//@NotEmpty(message="CV field cannot be empty")
-	private String cv;
-	
-	private int departmentId;
-	
 	public int getDepartmentId() {
 		return departmentId;
 	}
@@ -129,49 +115,18 @@ public class Employee implements Serializable {
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
-	private String departmentName;
-	
-
-	private String profilePhoto;
-
-	
 	public String getProfilePhoto() {
 		return profilePhoto;
 	}
 	public void setProfilePhoto(String profilePhoto) {
 		this.profilePhoto = profilePhoto;
 	}
-	
-	private Date joinedDate;
-	
-	private String leaveType;
-	private String leaveReason;
-	private Date leaveRequestedDate;
-	private String leaveStartDate;
-	private String leaveEndDate;
-	
-	
-	private double bonus;
-	private double allowances;
-	private double deductions;
-	private double total;
-	private double etf;
-	private double epfEmployee;
-	private double epfEmployer;
-	private Date payDate;
-	private String remarks;
-	private double additions;
-	
-	private int overTime;
-	private double hourlyRate;
-	private double grossSalary;
-	private double tax;
-	private double extraLeaves;
-	private double decrements;
-	private double increments;
-	
-	
-	
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
 	public int getOverTime() {
 		return overTime;
 	}
@@ -306,25 +261,12 @@ public class Employee implements Serializable {
 	public void setLeaveEndDate(String leaveEndDate) {
 		this.leaveEndDate = leaveEndDate;
 	}
-	@NotEmpty(message="License field cannot be empty")
-	private String drivingLicense;
-	
-	@NotEmpty(message="Bike Number field cannot be empty")
-	private String bikeNo;
-	
-	@NotEmpty(message="User name field cannot be empty")
-	private String userName;
-	
-	@NotEmpty(message="password field cannot be empty")
-	private String password;
-	
-	@NotEmpty(message="Vehicle Number field cannot be empty")
-	private String VehicleNo;
-	
-	@NotEmpty(message="Availability field cannot be empty")
-	private String availability;
-	
-	
+	public String getAvailability() {
+		return availability;
+	}
+	public void setAvailability(String availability) {
+		this.availability = availability;
+	}
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -367,13 +309,6 @@ public class Employee implements Serializable {
 	public void setMaritalStatus(String maritalStatus) {
 		this.maritalStatus = maritalStatus;
 	}
-	public int getBankAccountNo() {
-		return bankAccountNo;
-	}
-	public void setBankAccountNo(int bankAccountNo) {
-		this.bankAccountNo = bankAccountNo;
-	}
-	
 	public String getCurrentAddress() {
 		return currentAddress;
 	}
@@ -398,16 +333,22 @@ public class Employee implements Serializable {
 	public void setPostalCode(int postalCode) {
 		this.postalCode = postalCode;
 	}
-	public int getContactNo1() {
+	public long getBankAccountNo() {
+		return bankAccountNo;
+	}
+	public void setBankAccountNo(long bankAccountNo) {
+		this.bankAccountNo = bankAccountNo;
+	}
+	public long getContactNo1() {
 		return contactNo1;
 	}
-	public void setContactNo1(int contactNo1) {
+	public void setContactNo1(long contactNo1) {
 		this.contactNo1 = contactNo1;
 	}
-	public int getContactNo2() {
+	public long getContactNo2() {
 		return contactNo2;
 	}
-	public void setContactNo2(int contactNo2) {
+	public void setContactNo2(long contactNo2) {
 		this.contactNo2 = contactNo2;
 	}
 	public String getEmail() {
@@ -416,7 +357,6 @@ public class Employee implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	public String getDesignation() {
 		return designation;
 	}
@@ -484,14 +424,5 @@ public class Employee implements Serializable {
 	public void setVehicleNo(String vehicleNo) {
 		VehicleNo = vehicleNo;
 	}
-	public String getAvailability() {
-		return availability;
-	}
-	public void setAvailability(String availability) {
-		this.availability = availability;
-	}
 	
-	
-	
-
 }

@@ -8,35 +8,36 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.EmployeeManagement.Employee;
+//Service class to notify new password via  email
 
 @Service
-public class EmailNotificationDriver {
+public class ResetPassword {
+	
 	
 	
 private JavaMailSender javaMailSender;
 	
 	@Autowired
-	public EmailNotificationDriver(JavaMailSender javaMailSender) {
+	public ResetPassword(JavaMailSender javaMailSender) {
+		
 		this.javaMailSender=javaMailSender;
 		
 	}
 	
-	public void sendEmail(Employee  e) throws MessagingException {
+	public void sendEmail(String mail) throws MessagingException {
 		
 		
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,false,"utf-8");
-		String html = "<h3>Vehicle Number</h3>"+e.getVehicleNo();
+		String html = "<h3>New Password</h3><h2>45r65GT@DF</h2> ";
 		helper.setText(html,true);
-		helper.setTo(e.getEmail());
-		helper.setSubject("Welcome to Automated Barcode Solutions(pvt)Ltd");
+		helper.setTo(mail);
+		helper.setSubject("Password Reset");
 		helper.setFrom("springTest123456@gmail.com");
 		
 		javaMailSender.send(mimeMessage);
 		
 	}
-	
 	
 	
 

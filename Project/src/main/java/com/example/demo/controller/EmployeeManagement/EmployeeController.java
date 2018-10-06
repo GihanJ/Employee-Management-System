@@ -3,12 +3,12 @@ package com.example.demo.controller.EmployeeManagement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
-
+import javax.mail.MessagingException;
 import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dao.EmployeeManagement.EmployeeDao;
@@ -27,7 +29,9 @@ import com.example.demo.model.EmployeeManagement.Employee;
 import com.example.demo.service.EmployeeManagement.EmailNotificationDeo;
 import com.example.demo.service.EmployeeManagement.EmailNotificationDriver;
 import com.example.demo.service.EmployeeManagement.EmailNotificationTechnician;
+import com.example.demo.service.EmployeeManagement.ResetPassword;
 
+//Controller for all employee related activities
 
 @Controller
 public class EmployeeController {
@@ -45,6 +49,9 @@ public class EmployeeController {
 	public EmailNotificationDriver emailNotificationDriver;
 	
 	@Autowired
+	public ResetPassword resetPassword;
+	
+	@Autowired
 	public ReadAttendanceFile rt;
 	
 	@Autowired
@@ -57,62 +64,231 @@ public class EmployeeController {
 			return "/EmployeeManagement/SignIn";
 		}
 	
+	@RequestMapping(value="signCheck",method=RequestMethod.GET)
+	public void SignCheck(@RequestParam("userName") String userName,@RequestParam("password") String password,ModelMap model,HttpServletResponse response,HttpServletRequest request) throws IOException 
+		{
+			PrintWriter pw = response.getWriter();
+			if(employeedao.checkCredentials(userName, password)) {
+				
+					request.getSession().setAttribute("USER",userName);
+				
+					pw.println("<script type=\"text/javascript\">");
+					pw.println("alert(\"Sign in successfull!\")");
+					pw.println("location='add';");
+					pw.println("</script>");
+				
+			}
+			
+			else {
+				
+				pw.println("<script type=\"text/javascript\">");
+				pw.println("alert(\"Sign in Failed!Invalid Credentials\")");
+				pw.println("location='signin';");
+				pw.println("</script>");
+				
+				
+			}
+		}
+	
+	
+	
+	@RequestMapping("signout")
+	public void SignOut(HttpServletRequest request,HttpServletResponse response) throws IOException 
+		{
+				request.getSession().removeAttribute("USER");
+				request.getSession().invalidate();
+				PrintWriter pw = response.getWriter();
+				pw.println("<script type=\"text/javascript\">");
+				pw.println("alert(\"Sign Out Successful!!!\")");
+				pw.println("location='signin';");
+				pw.println("</script>");
+		}
+	
+	
+	@RequestMapping("reset")
+	public String Reset() 
+		{
+			return "/EmployeeManagement/ResetPassword";
+		}
+	
+	
+	
+	@RequestMapping(value="resetEmail",method=RequestMethod.POST)
+	public void updateReset(@RequestParam("email") String email,HttpServletResponse response) throws IOException 
+		{
+			
+
+			PrintWriter pw = response.getWriter();
+			try 
+			{
+				employeedao.reset(email);
+				resetPassword.sendEmail(email);
+				
+			}
+			
+			catch(Exception e) 
+			{
+				 e.printStackTrace();
+				 pw.println("<script type=\"text/javascript\">");
+				 pw.println("alert(\"Incorrect Email !\")");
+				 pw.println("location='signin';");
+				 pw.println("</script>");
+			
+			}
+		
+		
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Password has been Reset Successfully!Please Check your email\")");
+			 pw.println("location='signin';");
+			 pw.println("</script>");
+			
+	}
+	
+	
 	@RequestMapping(value="add",method=RequestMethod.GET)
 	public String AddDeo(ModelMap model) 
 		{
-			Employee employee = new Employee();
-			model.addAttribute("employee",employee);
-			return "/EmployeeManagement/AddEmployee";
+				Employee employee = new Employee();
+				model.addAttribute("employee",employee);
+				return "/EmployeeManagement/AddEmployee";
 		}
-	
 	
 	@RequestMapping(value="registerdeo",method=RequestMethod.POST)
-	public String enterData(@Valid Employee employee,BindingResult result,ModelMap model,RedirectAttributes redirectAttributes) 
+	public void enterData(@Valid Employee employee,BindingResult result,ModelMap model,RedirectAttributes redirectAttributes,HttpServletResponse response) throws IOException 
 		{
 		
-		employeedao.insert(employee);
+			PrintWriter pw = response.getWriter();
+			try 
+			{
+				employeedao.insert(employee);
+			}
+			
+			catch(Exception e) 
+			{
+				 e.printStackTrace();
+				 pw.println("<script type=\"text/javascript\">");
+				 pw.println("alert(\"User Name or N.I.C already exists !\")");
+				 pw.println("location='add';");
+				 pw.println("</script>");
+			
+			}
 		
-		try {
-		emailNotification.sendEmail(employee);
-		}
-		catch(MailException e){
-			e.printStackTrace();
-		}
+			try 
+			{
 		
-		return "redirect:/add";
+				emailNotification.sendEmail(employee);
+	
+			}
+			
+			catch (MailException | MessagingException e) 
+			{	
+				
+				 e.printStackTrace();
+				 pw.println("<script type=\"text/javascript\">");
+				 pw.println("alert(\"Registration successful! Failed to send the email due to a Network error !\")");
+				 pw.println("location='add';");
+				 pw.println("</script>");
+			
+			}
+		
+		
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Registration Successful! Email has been sent successfully !\")");
+			 pw.println("location='add';");
+			 pw.println("</script>");
+		
 		}
 	
 	@RequestMapping(value="registerdriver",method=RequestMethod.POST)
-	public String enterDataDriver(@Valid Employee employee,BindingResult result,ModelMap model,RedirectAttributes redirectAttributes) 
+	public void enterDataDriver(@Valid Employee employee,BindingResult result,ModelMap model,RedirectAttributes redirectAttributes,HttpServletResponse response) throws IOException 
 		{
 		
-		employeedao.insertDriver(employee);
-		
-		try {
-		emailNotificationDriver.sendEmail(employee);
-		}
-		catch(MailException e){
-			e.printStackTrace();
+		PrintWriter pw = response.getWriter();
+		try 
+		{
+			employeedao.insertDriver(employee);;
 		}
 		
-		return "redirect:/add";
+		catch(Exception e) 
+		{
+			 e.printStackTrace();
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Vehicle Number or N.I.C already exists !\")");
+			 pw.println("location='add';");
+			 pw.println("</script>");
+		
+		}
+	
+		try 
+		{
+	
+			emailNotificationDriver.sendEmail(employee);
+
+		}
+		
+		catch (MailException | MessagingException e) 
+		{	
+			
+			 e.printStackTrace();
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Registration successful! Failed to send the email due to a Network error !\")");
+			 pw.println("location='add';");
+			 pw.println("</script>");
+		
+		}
+	
+	
+		 pw.println("<script type=\"text/javascript\">");
+		 pw.println("alert(\"Registration Successful! Email has been sent successfully !\")");
+		 pw.println("location='add';");
+		 pw.println("</script>");
+		 
 		}
 	
 	
 	@RequestMapping(value="registerTechnician",method=RequestMethod.POST)
-	public String enterDataTechnician(@Valid Employee employee,BindingResult result,ModelMap model,RedirectAttributes redirectAttributes) 
+	public void enterDataTechnician(@Valid Employee employee,BindingResult result,ModelMap model,RedirectAttributes redirectAttributes,HttpServletResponse response) throws IOException 
 		{
 		
-		employeedao.insertTechnician(employee);
+		PrintWriter pw = response.getWriter();
+		try 
+		{
+			employeedao.insertTechnician(employee);
+		}
 		
-		try {
+		catch(Exception e) 
+		{
+			 e.printStackTrace();
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Bike Number or N.I.C already exists !\")");
+			 pw.println("location='add';");
+			 pw.println("</script>");
+		
+		}
+	
+		try 
+		{
+	
 			emailNotificationTechnician.sendEmail(employee);
-		}
-		catch(MailException e){
-			e.printStackTrace();
+
 		}
 		
-		return "redirect:/add";
+		catch (MailException | MessagingException e) 
+		{	
+			
+			 e.printStackTrace();
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Registration successful! Failed to send the email due to a Network error !\")");
+			 pw.println("location='add';");
+			 pw.println("</script>");
+		
+		}
+	
+	
+		 pw.println("<script type=\"text/javascript\">");
+		 pw.println("alert(\"Registration Successful! Email has been sent successfully !\")");
+		 pw.println("location='add';");
+		 pw.println("</script>");
 		}
 	
 	
@@ -133,6 +309,16 @@ public class EmployeeController {
 			return "/EmployeeManagement/EmployeeProfile";
 		}
 	
+	
+	 @RequestMapping(value="/editProfileByID/{id}",method=RequestMethod.GET)
+		public String editProfilebyID(@PathVariable ("id") String employeeCode,ModelMap model) 
+			{
+				Employee employee= employeedao.getEmployeeById(employeeCode);
+				model.addAttribute("employee", employee);
+				return "/EmployeeManagement/EmployeeProfile";
+			}
+	 
+	 
 	
 	@RequestMapping(value="getEmployeePayroll",method=RequestMethod.GET)
 	public String getEmployeePayroll(HttpServletRequest request,@RequestParam("employeeCode") String employeeCode,ModelMap model) 
@@ -203,11 +389,33 @@ public class EmployeeController {
 		}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
-	public String update(@ModelAttribute("employee")Employee s,ModelMap model) 
+	public void update(@ModelAttribute("employee")Employee s,BindingResult bindingResult,ModelMap model,HttpServletResponse response) throws IOException 
 		{
-			employeedao.update(s);
-			return "/EmployeeManagement/EmployeeProfile";
-		}
+			
+
+			PrintWriter pw = response.getWriter();
+			try 
+			{
+				employeedao.update(s);
+			}
+			
+			catch(Exception e) 
+			{
+				 e.printStackTrace();
+				 pw.println("<script type=\"text/javascript\">");
+				 pw.println("alert(\"User Name/N.I.C/Bike Number or Vehicle Number already exists !\")");
+				 pw.println("location='profile';");
+				 pw.println("</script>");
+			
+			}
+		
+		
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Update Successful!\")");
+			 pw.println("location='profile';");
+			 pw.println("</script>");
+			
+	}
 
 	
 	@RequestMapping("t&a")
@@ -234,9 +442,11 @@ public class EmployeeController {
 
 	
 	@RequestMapping(value="/dash",method=RequestMethod.GET)
-	public String employeeDashboard() {
-	
-		return "/EmployeeManagement/EmployeeDashboard";
+	public ModelAndView employeeDashboard() {
+		
+		List <Employee> TechnicianList = employeedao.getAllTechnicians();
+		return new ModelAndView("/EmployeeManagement/EmployeeDashboard","TechnicianList",TechnicianList); 
+
 	}
 	
 	@RequestMapping(value="/ProfilePdf")
@@ -253,33 +463,76 @@ public class EmployeeController {
 	
 	
 	@RequestMapping(value="uploadt&a",method=RequestMethod.POST)
-	public String uploadTandA(@RequestParam("filePath") String path) {
-		
-		System.out.println(path);
-		
-		path ="C:\\Users\\HP\\Desktop\\Time and Attendance Upload\\"+path;
-		System.out.println(path);
-		rt.open(path);
-		rt.read();
-		rt.close();
+	public void uploadTandA(@RequestParam("filePath") String path,HttpServletResponse response) throws IOException {
 		
 		
-		return "/EmployeeManagement/Time&Attend";
+		
+		PrintWriter pw = response.getWriter();
+		try 
+		{
+			System.out.println(path);
+			
+			path ="C:\\Users\\HP\\Desktop\\Time and Attendance Upload\\"+path;
+			System.out.println(path);
+			rt.open(path);
+			rt.read();
+			rt.close();
+			
+		}
+		
+		catch(Exception e) 
+		{
+			 e.printStackTrace();
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Select the correct file to upload Attendance Records!\")");
+			 pw.println("location='t&a';");
+			 pw.println("</script>");
+		
+		}
+	
+	
+		 pw.println("<script type=\"text/javascript\">");
+		 pw.println("alert(\"Update Successful!\")");
+		 pw.println("location='t&a';");
+		 pw.println("</script>");
+		
+	
 	}
 	
 	@RequestMapping(value="uploadOverTime",method=RequestMethod.POST)
-	public String uploadOverTime(@RequestParam("overTime") String path) {
-		
-		System.out.println(path);
-		
-		path ="C:\\Users\\HP\\Desktop\\OverTime Upload\\"+path;
-		System.out.println(path);
-		ot.open(path);
-		ot.read();
-		ot.close();
+	public void uploadOverTime(@RequestParam("overTime") String path,HttpServletResponse response) throws IOException {
 		
 		
-		return "/EmployeeManagement/Time&Attend";
+		PrintWriter pw = response.getWriter();
+		try 
+		{
+			System.out.println(path);
+			
+			path ="C:\\Users\\HP\\Desktop\\OverTime Upload\\"+path;
+			System.out.println(path);
+			ot.open(path);
+			ot.read();
+			ot.close();
+			
+		}
+		
+		catch(Exception e) 
+		{
+			 e.printStackTrace();
+			 pw.println("<script type=\"text/javascript\">");
+			 pw.println("alert(\"Select the correct file to upload Over Time Records!\")");
+			 pw.println("location='t&a';");
+			 pw.println("</script>");
+		
+		}
+	
+	
+		 pw.println("<script type=\"text/javascript\">");
+		 pw.println("alert(\"Update Successful!\")");
+		 pw.println("location='t&a';");
+		 pw.println("</script>");
+		
+		
 	}
 	
 	@RequestMapping(value="enterPayroll",method=RequestMethod.POST)

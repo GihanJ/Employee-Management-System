@@ -25,12 +25,23 @@
 </head>
 
 <body>
+	<% 
+		response.setHeader("Cache-Control","no-cache,no-store,must-revalidate"); //HTTP 1.1
+		response.setHeader("Pragma","no-cache"); //HTTP 1.0
+		response.setHeader("Expires","0");  //Proxies
+
+		if(session.getAttribute("USER")== null)
+		{
+			response.sendRedirect("signin");
+		}
+		
+	%>
 	<div class="container-fluid" style="height: 1350px">
 		<div class="row" >
 			<div class="header">
 				<img src="Images/logo.png" style="width:12%;margin-left: 2%">
  				<font style="font-family: Good Times; font-size: 230%"><span style="color: white;margin-left: 2%;marg">Automated Barcode Solutions</span></font>
- 
+ 				<a href="signout"><font style="font-family: Good Times; font-size: 100%"><span style="color: white;margin-left: 90%;">Sign Out</span></font></a>
  					<div class="navbar">
 						<div class="dropdown">
   							<button class="dropbtn dropdown-toggle"><a href="dash" style="color: black;text-decoration: none;">Employee Management</a></button>
@@ -142,14 +153,14 @@
 							    	<%
 							    		try
 							    		{
-							    			String query ="select empcode from employee";
+							    			String query ="select empcode,firstName,lastName from employee";
 							    			Class.forName("com.mysql.jdbc.Driver").newInstance();
 							    			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/automatedbarcode_database?useSSL=false","root","root");
 							    			Statement stm = con.createStatement();
 							    			ResultSet rs = stm.executeQuery(query);
 							    			while(rs.next()){
 							    				
-							    				%><option value="<%=rs.getString("empcode")%>"><%=rs.getString("empcode") %></option>
+							    				%><option value="<%=rs.getString("empcode")%>"><%=rs.getString("empcode") %> <%=rs.getString("firstName") %> <%=rs.getString("lastName") %></option>
 							    				<% 	    				
 							    			}
 							    			

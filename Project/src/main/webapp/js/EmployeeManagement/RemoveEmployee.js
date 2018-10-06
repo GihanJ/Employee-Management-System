@@ -96,7 +96,13 @@
     							notEmpty: 
     							{
     								message: 'Reason cannot be Empty'
-    							}
+    							}, 
+    							
+		    					stringLength: 
+								{
+									min: 6,
+									message: 'Reason must be minimum 6 letters in length '
+								}
     						}
     					},	
     					

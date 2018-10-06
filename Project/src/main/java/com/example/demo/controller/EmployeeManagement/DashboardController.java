@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.Statement;
 
+//Controller class for retrieve data to dashboard charts  
 public class DashboardController  
 {
 	

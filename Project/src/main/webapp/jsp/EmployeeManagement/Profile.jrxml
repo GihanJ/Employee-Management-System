@@ -61,7 +61,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="dob"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
-	<field name="bankAccNo" class="java.lang.Integer">
+	<field name="bankAccNo" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="bankAccNo"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
@@ -97,11 +97,11 @@
 		<property name="com.jaspersoft.studio.field.label" value="homeAddress"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
-	<field name="contactNo1" class="java.lang.Integer">
+	<field name="contactNo1" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="contactNo1"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
-	<field name="contactNo2" class="java.lang.Integer">
+	<field name="contactNo2" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="contactNo2"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>

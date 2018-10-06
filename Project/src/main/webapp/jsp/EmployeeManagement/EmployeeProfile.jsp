@@ -13,24 +13,36 @@
 	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/custom.css">
-	<link rel="stylesheet" href="css/glyphican.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/proper.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script type="text/javascript" src="js/bootstrapValidator.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="stylesheet" href="/css/glyphican.css">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/proper.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script type="/text/javascript" src="js/bootstrapValidator.js"></script>
 	 	
 	<title>EmployeeProfile</title>
 </head>
 
 <body>
+
+	<% 
+		response.setHeader("Cache-Control","no-cache,no-store,must-revalidate"); //HTTP 1.1
+		response.setHeader("Pragma","no-cache"); //HTTP 1.0
+		response.setHeader("Expires","0");  //Proxies
+
+		if(session.getAttribute("USER")== null)
+		{
+			response.sendRedirect("signin");
+		}
+		
+	%>
 	<div class="container-fluid" style="height: 2000px">
 		<div class="row" >
 			<div class="header">
 				<img src="Images/logo.png" style="width:12%;margin-left: 2%">
  				<font style="font-family: Good Times; font-size: 230%"><span style="color: white;margin-left: 2%;marg">Automated Barcode Solutions</span></font>
- 
+ 				<a href="signout"><font style="font-family: Good Times; font-size: 100%"><span style="color: white;margin-left: 90%;">Sign Out</span></font></a>
  					<div class="navbar">
 						<div class="dropdown">
   							<button class="dropbtn dropdown-toggle"><a href="dash" style="color: black;text-decoration: none;">Employee Management</a></button>
@@ -142,14 +154,14 @@
 							    	<%
 							    		try
 							    		{
-							    			String query ="select empcode from employee";
+							    			String query ="select empcode,firstName,lastName from employee";
 							    			Class.forName("com.mysql.jdbc.Driver").newInstance();
 							    			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/automatedbarcode_database?useSSL=false","root","root");
 							    			Statement stm = con.createStatement();
 							    			ResultSet rs = stm.executeQuery(query);
 							    			while(rs.next()){
 							    				
-							    				%><option value="<%=rs.getString("empcode")%>"><%=rs.getString("empcode") %></option>
+							    				%><option value="<%=rs.getString("empcode")%>"><%=rs.getString("empcode") %> <%=rs.getString("firstName") %> <%=rs.getString("lastName") %></option>
 							    				<% 	    				
 							    			}
 							    			
@@ -185,7 +197,7 @@
 					</div>
 				</div>
 				
-				<div class="row" style=" margin-top: 68px">
+				<div class="row" style=" margin-top: 95px">
 					<div class="col my-5 text-center"><Span style="text-decoration: underline;"><h4>Contact Information</h4></Span></div>
 				</div>
 
@@ -295,6 +307,18 @@
     					</div>
     				</div>
     			</div>
+    			
+    			
+    			<div class="form-group row">
+					<label for="bank" class="col-md-5 col-form-label ml-4">Bank</label>
+      				<div class="col-md-6">
+      					<div class="input-group">
+  							<form:select class="custom-select" path="bank" id="bank" name="bank" readonly="true">
+								<option value="${employee.bank}" selected >${employee.bank}</option>
+							</form:select>
+    					</div>
+    				</div>
+    			</div>
     
 				<div class="form-group row">
 					<label for="bankAccountNo" class="col-md-5 col-form-label ml-4">Bank Account Number</label>
@@ -303,7 +327,7 @@
       				</div>
       			</div>
 
-				<div class="row" style="margin-top: 44px">
+				<div class="row">
 					<div class="col my-5  text-center"><Span style="text-decoration: underline;"><h4>Company Information</h4></Span></div>
 				</div>
 				

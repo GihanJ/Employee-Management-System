@@ -11,8 +11,10 @@
     <script src="js/jquery.js"></script>
     <script src="js/proper.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="js/EmployeeManagement/CheckEmail.js"></script>
+	
 	 	
-	<title>SignIn</title>
+	<title>Reset Password</title>
 </head>
 
 <body>
@@ -125,24 +127,18 @@
 		
 		<div class="row mx-auto">
 			<div class="col-md-12">
-				<form class="form-horizontal" action="signCheck">
+				<form class="form-horizontal" action="resetEmail" name="reset" method="post">
   				<div class="form-group row" style="margin-left: 30%;margin-top: 12%">
-    				<label class="control-label col-sm-2" for="userName">User Name</label>
+    				<label class="control-label col-sm-2" for="email">Email</label>
     					<div class="col-sm-4">
-      						<input type="text" class="form-control" name="userName" id="userName" placeholder="Enter User Name">
+      						<input type="text" class="form-control" name="email" id="email" placeholder="Enter Registered Email Address" onblur="checkEmail()"><span id="checkMail"></span>
     					</div>
  	 			</div>
-  				<div class="form-group row"  style="margin-left: 30%;margin-top: 4%">
-    				<label class="control-label col-sm-2" for="password">Password</label>
-    					<div class="col-sm-4"> 
-      						<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
-    					</div>
-  				</div>
+  				
 	 			<div class="form-group" style="margin-left: 42%;margin-top: 5%"> 
     				<div class="col-sm-offset-2 col-sm-10">
-      					<button type="submit" class="btn btn-primary">SignIn</button>
+      					<button type="submit" class="btn btn-primary">Reset Password</button>
     				</div>
-    				<a href="reset" style="margin-left: 12%;">Forgot Password?</a>
  	 			</div>
 				</form>
 			</div>

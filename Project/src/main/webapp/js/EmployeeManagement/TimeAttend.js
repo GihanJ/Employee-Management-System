@@ -37,7 +37,7 @@
 				onSuccess: function(e, data) 
 				{
 	                  
-                    alert('Over Time Records Update Successful!!!');
+					alert('Update in Progress');
                 }
 				
 			});
@@ -72,7 +72,7 @@
 				onSuccess: function(e, data) 
 				{
 	                  
-                  alert('Attendance Records Update Successful!!!');
+                  alert('Update in Progress');
 				}
 				
 			});

@@ -3,10 +3,11 @@ package com.example.demo.dao.EmployeeManagement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
-
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,6 +15,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.EmployeeManagement.Employee;
+
 
 
 @Service
@@ -36,15 +38,74 @@ public class EmployeeDao {
 		
 	}
 	
+	
+	public boolean checkCredentials(String userName,String password) 
+	
+	{
+		return template.query("select * from system_user where username='"+userName+"' and password='"+password+"'",new ResultSetExtractor<Boolean>() {
+			
+			public Boolean extractData(ResultSet rs) throws SQLException {
+				
+				if(rs.next()) 
+				{
+					
+					 return true;
+				}
+				
+				else 
+				{
+					return false;
+				}
+		}
+				
+			
+		});
+		
+	}
+	
+	
+	
+	@Transactional(rollbackOn= Throwable.class)
 	public void insert(Employee e) 
 	{
 		
-		String sql1="insert into employee(empcode,firstName, lastName, gender, currentAddress,homeAddress,city, postalCode, martialStatus, joinedDate, NIC, dob, bankAccNo, basicSalary, experiencedLevel, cv, designation, deptId, certificate, email,contactNo1, contactNo2, profilePhoto) values ('XYZ','"+e.getFirstName()+"','"+e.getLastName()+"','"+e.getGender()+"','"+e.getCurrentAddress()+"','"+e.getHomeAddress()+"','"+e.getCity()+"','"+e.getPostalCode()+"','"+e.getMaritalStatus()+"','"+e.getJoinedDate()+"','"+e.getNIC()+"','"+e.getBirthDate()+"','"+e.getBankAccountNo()+"','"+e.getBasicSalary()+"','"+e.getExperiencedLevel()+"','"+e.getCv()+"','"+e.getDesignation()+"','"+e.getDepartmentId()+"','"+e.getCertificates()+"','"+e.getEmail()+"','"+e.getContactNo1()+"','"+e.getContactNo2()+"','"+e.getProfilePhoto()+"')";
+		String sql1="insert into employee(empcode,firstName, lastName, gender, currentAddress,homeAddress,city, postalCode, martialStatus, joinedDate, NIC, dob, bankAccNo, basicSalary, experiencedLevel, cv, designation, deptId, certificate, email,contactNo1, contactNo2, profilePhoto,bank) values ('XYZ','"+e.getFirstName()+"','"+e.getLastName()+"','"+e.getGender()+"','"+e.getCurrentAddress()+"','"+e.getHomeAddress()+"','"+e.getCity()+"','"+e.getPostalCode()+"','"+e.getMaritalStatus()+"','"+e.getJoinedDate()+"','"+e.getNIC()+"','"+e.getBirthDate()+"','"+e.getBankAccountNo()+"','"+e.getBasicSalary()+"','"+e.getExperiencedLevel()+"','"+e.getCv()+"','"+e.getDesignation()+"','"+e.getDepartmentId()+"','"+e.getCertificates()+"','"+e.getEmail()+"','"+e.getContactNo1()+"','"+e.getContactNo2()+"','"+e.getProfilePhoto()+"','"+e.getBank()+"')";
 		String sql2="UPDATE employee SET empcode = concat( empstr, empID )" ;
 		String sql3="SET @last_id_in_employee = Last_Insert_ID();";
 		String sql4="insert into system_user(empcode,empSUId, username, password)values ('XYZ',@last_id_in_employee,'"+e.getUserName()+"','"+e.getPassword()+"')";
 		String sql5="UPDATE system_user SET empcode = concat( empstr, empSUId )" ;
 		
+		System.out.println(sql1);
+		System.out.println(sql3);
+		template.batchUpdate(sql1,sql2,sql3,sql4,sql5);
+	
+	} 
+	
+	
+	@Transactional(rollbackOn= Throwable.class)
+	public void insertDriver(Employee e) 
+	{
+		
+		String sql1="insert into employee(empcode,firstName, lastName, gender, currentAddress,homeAddress,city, postalCode, martialStatus, joinedDate, NIC, dob, bankAccNo, basicSalary, experiencedLevel, cv, designation, deptId, certificate, email,contactNo1, contactNo2, profilePhoto,bank) values ('XYZ','"+e.getFirstName()+"','"+e.getLastName()+"','"+e.getGender()+"','"+e.getCurrentAddress()+"','"+e.getHomeAddress()+"','"+e.getCity()+"','"+e.getPostalCode()+"','"+e.getMaritalStatus()+"','"+e.getJoinedDate()+"','"+e.getNIC()+"','"+e.getBirthDate()+"','"+e.getBankAccountNo()+"','"+e.getBasicSalary()+"','"+e.getExperiencedLevel()+"','"+e.getCv()+"','"+e.getDesignation()+"','"+e.getDepartmentId()+"','"+e.getCertificates()+"','"+e.getEmail()+"','"+e.getContactNo1()+"','"+e.getContactNo2()+"','"+e.getProfilePhoto()+"','"+e.getBank()+"')";
+		String sql2="UPDATE employee SET empcode = concat( empstr, empID )" ;
+		String sql3="SET @last_id_in_employee = Last_Insert_ID();";
+		String sql4="insert into other_emps(empCode,empOTId, drivingLicense, availability, vehicleNo)values ('XYZ',@last_id_in_employee,'"+e.getDrivingLicense()+"','"+e.getAvailability()+"','"+e.getVehicleNo()+"')";
+		String sql5="UPDATE other_emps SET empcode = concat( empStr, empOTId )" ;
+		System.out.println(sql1);
+		System.out.println(sql3);
+		template.batchUpdate(sql1,sql2,sql3,sql4,sql5);
+	
+	}
+	
+	@Transactional(rollbackOn= Throwable.class)
+	public void insertTechnician(Employee e) 
+	{
+		
+		String sql1="insert into employee(empcode,firstName, lastName, gender, currentAddress,homeAddress,city, postalCode, martialStatus, joinedDate, NIC, dob, bankAccNo, basicSalary, experiencedLevel, cv, designation, deptId, certificate, email,contactNo1, contactNo2, profilePhoto,bank) values ('XYZ','"+e.getFirstName()+"','"+e.getLastName()+"','"+e.getGender()+"','"+e.getCurrentAddress()+"','"+e.getHomeAddress()+"','"+e.getCity()+"','"+e.getPostalCode()+"','"+e.getMaritalStatus()+"','"+e.getJoinedDate()+"','"+e.getNIC()+"','"+e.getBirthDate()+"','"+e.getBankAccountNo()+"','"+e.getBasicSalary()+"','"+e.getExperiencedLevel()+"','"+e.getCv()+"','"+e.getDesignation()+"','"+e.getDepartmentId()+"','"+e.getCertificates()+"','"+e.getEmail()+"','"+e.getContactNo1()+"','"+e.getContactNo2()+"','"+e.getProfilePhoto()+"','"+e.getBank()+"')";
+		String sql2="UPDATE employee SET empcode = concat( empstr, empID )" ;
+		String sql3="SET @last_id_in_employee = Last_Insert_ID();";
+		String sql4="insert into other_emps(empCode,empOTId, drivingLicense, availability,bikeNo)values ('XYZ',@last_id_in_employee,'"+e.getDrivingLicense()+"','"+e.getAvailability()+"','"+e.getBikeNo()+"')";
+		String sql5="UPDATE other_emps SET empcode = concat( empStr, empOTId )" ;
 		System.out.println(sql1);
 		System.out.println(sql3);
 		template.batchUpdate(sql1,sql2,sql3,sql4,sql5);
@@ -80,36 +141,7 @@ public class EmployeeDao {
 
 	} 
 	
-	
-	public void insertDriver(Employee e) 
-	{
-		
-		String sql1="insert into employee(empcode,firstName, lastName, gender, currentAddress,homeAddress,city, postalCode, martialStatus, joinedDate, NIC, dob, bankAccNo, basicSalary, experiencedLevel, cv, designation, deptId, certificate, email,contactNo1, contactNo2, profilePhoto) values ('XYZ','"+e.getFirstName()+"','"+e.getLastName()+"','"+e.getGender()+"','"+e.getCurrentAddress()+"','"+e.getHomeAddress()+"','"+e.getCity()+"','"+e.getPostalCode()+"','"+e.getMaritalStatus()+"','"+e.getJoinedDate()+"','"+e.getNIC()+"','"+e.getBirthDate()+"','"+e.getBankAccountNo()+"','"+e.getBasicSalary()+"','"+e.getExperiencedLevel()+"','"+e.getCv()+"','"+e.getDesignation()+"','"+e.getDepartmentId()+"','"+e.getCertificates()+"','"+e.getEmail()+"','"+e.getContactNo1()+"','"+e.getContactNo2()+"','"+e.getProfilePhoto()+"')";
-		String sql2="UPDATE employee SET empcode = concat( empstr, empID )" ;
-		String sql3="SET @last_id_in_employee = Last_Insert_ID();";
-		String sql4="insert into other_emps(empCode,empOTId, drivingLicense, availability, vehicleNo)values ('XYZ',@last_id_in_employee,'"+e.getDrivingLicense()+"','"+e.getAvailability()+"','"+e.getVehicleNo()+"')";
-		String sql5="UPDATE other_emps SET empcode = concat( empStr, empOTId )" ;
-		System.out.println(sql1);
-		System.out.println(sql3);
-		template.batchUpdate(sql1,sql2,sql3,sql4,sql5);
-	
-	} 
-	
-	public void insertTechnician(Employee e) 
-	{
-		
-		String sql1="insert into employee(empcode,firstName, lastName, gender, currentAddress,homeAddress,city, postalCode, martialStatus, joinedDate, NIC, dob, bankAccNo, basicSalary, experiencedLevel, cv, designation, deptId, certificate, email,contactNo1, contactNo2, profilePhoto) values ('XYZ','"+e.getFirstName()+"','"+e.getLastName()+"','"+e.getGender()+"','"+e.getCurrentAddress()+"','"+e.getHomeAddress()+"','"+e.getCity()+"','"+e.getPostalCode()+"','"+e.getMaritalStatus()+"','"+e.getJoinedDate()+"','"+e.getNIC()+"','"+e.getBirthDate()+"','"+e.getBankAccountNo()+"','"+e.getBasicSalary()+"','"+e.getExperiencedLevel()+"','"+e.getCv()+"','"+e.getDesignation()+"','"+e.getDepartmentId()+"','"+e.getCertificates()+"','"+e.getEmail()+"','"+e.getContactNo1()+"','"+e.getContactNo2()+"','"+e.getProfilePhoto()+"')";
-		String sql2="UPDATE employee SET empcode = concat( empstr, empID )" ;
-		String sql3="SET @last_id_in_employee = Last_Insert_ID();";
-		String sql4="insert into other_emps(empCode,empOTId, drivingLicense, availability,bikeNo)values ('XYZ',@last_id_in_employee,'"+e.getDrivingLicense()+"','"+e.getAvailability()+"','"+e.getBikeNo()+"')";
-		String sql5="UPDATE other_emps SET empcode = concat( empStr, empOTId )" ;
-		System.out.println(sql1);
-		System.out.println(sql3);
-		template.batchUpdate(sql1,sql2,sql3,sql4,sql5);
-	
-	} 
-	
-	
+	 
 	public void uploadTimeAttendance(String a,String b,String c,String d) 
 	{	
 		
@@ -152,20 +184,21 @@ public class EmployeeDao {
 					e.setMaritalStatus(rs.getString(10));
 					e.setJoinedDate(rs.getDate(11));
 					e.setNIC(rs.getString(12));
-					e.setBankAccountNo(rs.getInt(14));
+					e.setBankAccountNo(rs.getLong(14));
 					e.setBasicSalary(rs.getDouble(15));
 					e.setDesignation(rs.getString(18));
 					e.setEmail(rs.getString(21));
 					e.setHomeAddress(rs.getString(22));
-					e.setContactNo1(rs.getInt(23));
-					e.setContactNo2(rs.getInt(24));
+					e.setContactNo1(rs.getLong(23));
+					e.setContactNo2(rs.getLong(24));
 					e.setProfilePhoto(rs.getString(25));
-					e.setUserName(rs.getString(29));
-					e.setPassword(rs.getString(30));
-					e.setDrivingLicense(rs.getString(34));
-					e.setAvailability(rs.getString(35));
-					e.setVehicleNo(rs.getString(36));
-					e.setBikeNo(rs.getString(37));
+					e.setBank(rs.getString(26));
+					e.setUserName(rs.getString(30));
+					e.setPassword(rs.getString(31));
+					e.setDrivingLicense(rs.getString(35));
+					e.setAvailability(rs.getString(36));;
+					e.setVehicleNo(rs.getString(37));
+					e.setBikeNo(rs.getString(38));
 					
 				}
 			
@@ -177,19 +210,27 @@ public class EmployeeDao {
 		
 	}
 		
-	
+	@Transactional(rollbackOn= Throwable.class)
 	public void update(Employee e)
 	{
 		String sql1="update system_user	set username='"+e.getUserName()+"',password='"+e.getPassword()+"' where empcode='"+e.getEmployeeCode()+"';";
-		String sql2="update other_emps	set drivingLicense='"+e.getDrivingLicense()+"',availability='"+e.getAvailability()+"',vehicleNo='"+e.getVehicleNo()+"',bikeNo='"+e.getBikeNo()+"' where empCode='"+e.getEmployeeCode()+"';";
-		String sql3="update employee set firstName='"+e.getFirstName()+"',lastName='"+e.getLastName()+"',currentAddress='"+e.getCurrentAddress()+"',homeAddress='"+e.getHomeAddress()+"',city='"+e.getCity()+"',postalCode='"+e.getPostalCode()+"',martialStatus='"+e.getMaritalStatus()+"',NIC='"+e.getNIC()+"',bankAccNo='"+e.getBankAccountNo()+"',basicSalary='"+e.getBasicSalary()+"',email='"+e.getEmail()+"',contactNo1='"+e.getContactNo1()+"',contactNo2='"+e.getContactNo2()+"',profilePhoto='"+e.getProfilePhoto()+"' where empcode='"+e.getEmployeeCode()+"';";
+		String sql2="update other_emps	set drivingLicense='"+e.getDrivingLicense()+"',vehicleNo='"+e.getVehicleNo()+"',bikeNo='"+e.getBikeNo()+"' where empCode='"+e.getEmployeeCode()+"';";
+		String sql3="update employee set firstName='"+e.getFirstName()+"',lastName='"+e.getLastName()+"',currentAddress='"+e.getCurrentAddress()+"',homeAddress='"+e.getHomeAddress()+"',city='"+e.getCity()+"',postalCode='"+e.getPostalCode()+"',martialStatus='"+e.getMaritalStatus()+"',NIC='"+e.getNIC()+"',bankAccNo='"+e.getBankAccountNo()+"',bank='"+e.getBank()+"',basicSalary='"+e.getBasicSalary()+"',email='"+e.getEmail()+"',contactNo1='"+e.getContactNo1()+"',contactNo2='"+e.getContactNo2()+"',profilePhoto='"+e.getProfilePhoto()+"' where empcode='"+e.getEmployeeCode()+"';";
 
 		System.out.println(sql1);
 		System.out.println(sql2);
 		System.out.println(sql3);
 		template.batchUpdate(sql1,sql2,sql3);
 	} 
-		
+	
+	
+	@Transactional(rollbackOn= Throwable.class)
+	public void reset(String email)
+	{
+		String sql1="update system_user  set password='45r65GT@DF' where empSUId = (select empID from employee where email='"+email+"');";
+
+		template.batchUpdate(sql1);
+	} 
 	
 	
 	public Employee getRemovedById(String id) 
@@ -205,17 +246,15 @@ public class EmployeeDao {
 				{
 					e.setEmployeeCode(rs.getString(3));
 					e.setFirstName(rs.getString(4));
-					
 					e.setLastName(rs.getString(5));
-				
 					e.setCurrentAddress(rs.getString(7));
 					e.setCity(rs.getString(8));
 					e.setPostalCode(rs.getInt(9));
 					e.setMaritalStatus(rs.getString(10));
 					e.setJoinedDate(rs.getDate(11));
 					e.setDesignation(rs.getString(18));
-					e.setContactNo1(rs.getInt(23));
-					e.setDepartmentName(rs.getString(27));
+					e.setContactNo1(rs.getLong(23));
+					e.setDepartmentName(rs.getString(28));
 					
 				}
 				return e;
@@ -261,6 +300,34 @@ public class EmployeeDao {
 	}
 	
 	
-	
-	
+	public List<Employee> getAllTechnicians(){
+		
+		return template.query("Select e.empcode,contactNo1,email,availability from employee e  left join other_emps on e.empcode=other_emps.empCode where designation='Technician' order by empcode DESC limit 5", new ResultSetExtractor<List<Employee>>() {
+			
+			public List<Employee> extractData(ResultSet rs) throws SQLException{
+				
+				
+				List<Employee> TechnicianList = new ArrayList<Employee>();
+				while(rs.next()) {
+					
+					Employee e = new Employee();
+					e.setEmployeeCode(rs.getString(1));
+					e.setContactNo1(rs.getLong(2));
+					e.setEmail(rs.getString(3));
+					e.setAvailability(rs.getString(4));
+					
+					TechnicianList.add(e);	
+					
+				}
+				
+				return TechnicianList;
+				
+			}
+			
+			
+		});
+		
+		
+	}
+		
 }

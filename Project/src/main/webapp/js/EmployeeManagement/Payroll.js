@@ -1,3 +1,51 @@
+
+
+$(document).ready(function() 
+{
+$('input').keyup(function(){
+	
+	var Basic = Number($('#basicSalary').val());
+	var OverTime = Number($('#overTime').val());
+	var Rate = Number($('#hourlyRate').val());
+	var Allowances = Number($('#allowances').val());
+	var Bonus = Number($('#bonus').val());
+	
+	
+	document.getElementById('grossSalary').value=Basic+OverTime*Rate+Allowances;
+	document.getElementById('epfEmployee').value=(Basic)*0.08;
+	document.getElementById('epfEmployer').value=(Basic)*0.12;
+	document.getElementById('etf').value=(Basic)*0.03;
+	
+	
+	
+	var Tax = Number($('#tax').val());
+	var ExtraLeaves = Number($('#extraLeaves').val());
+	var Decrements = Number($('#decrements').val());
+	var epf8 = Number($('#epfEmployee').val());
+	var Increments = Number($('#increments').val());
+	
+	
+	
+	
+	
+	document.getElementById('deductions').value=epf8+Tax+ExtraLeaves+Decrements;
+	document.getElementById('additions').value=Bonus+Increments;
+	
+	var GrossSal = Number($('#grossSalary').val());
+	var Deductions = Number($('#deductions').val());
+	var Additions = Number($('#additions').val());
+	
+		
+	document.getElementById('total').value=(GrossSal+Additions-Deductions);	
+	
+	
+});
+
+});
+
+
+
+
 $(document).ready(function() 
 {
 	$('#validatePayForm').bootstrapValidator
@@ -115,48 +163,7 @@ $(document).ready(function()
 	});
 });
 
-$(document).ready(function() 
-{
-$('input').keyup(function(){
-	
-	var Basic = Number($('#basicSalary').val());
-	var OverTime = Number($('#overTime').val());
-	var Rate = Number($('#hourlyRate').val());
-	var Allowances = Number($('#allowances').val());
-	var Bonus = Number($('#bonus').val());
-	
-	
-	document.getElementById('grossSalary').value=Basic+OverTime*Rate+Allowances;
-	document.getElementById('epfEmployee').value=(Basic)*0.08;
-	document.getElementById('epfEmployer').value=(Basic)*0.12;
-	document.getElementById('etf').value=(Basic)*0.03;
-	
-	
-	
-	var Tax = Number($('#tax').val());
-	var ExtraLeaves = Number($('#extraLeaves').val());
-	var Decrements = Number($('#decrements').val());
-	var epf8 = Number($('#epfEmployee').val());
-	var Increments = Number($('#increments').val());
-	
-	
-	
-	
-	
-	document.getElementById('deductions').value=epf8+Tax+ExtraLeaves+Decrements;
-	document.getElementById('additions').value=Bonus+Increments;
-	
-	var GrossSal = Number($('#grossSalary').val());
-	var Deductions = Number($('#deductions').val());
-	var Additions = Number($('#additions').val());
-	
-		
-	document.getElementById('total').value=(GrossSal+Additions-Deductions);	
-	
-	
-});
 
-});
 
 
 
