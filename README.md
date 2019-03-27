@@ -2,10 +2,11 @@ Employee management system is a part of an Office Management System(Group Projec
 
 Used Technologies :
 
-Java
-Spring Boot
-MySQL
-Ajax
+1.Java
+2.Spring Boot
+3.MySQL
+4.Ajax
+
 Below mentioned are the main components of the employee management system :
 
 Add Employee
