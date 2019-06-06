@@ -7,6 +7,7 @@ Used Technologies :
 Java,
 Spring Boot,
 MySQL,
+Bootstrap,
 Ajax.
 
 Below mentioned are the main components of the employee management system :
