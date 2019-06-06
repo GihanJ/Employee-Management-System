@@ -1,5 +1,7 @@
 Employee management system is a part of an Office Management System(Group Project).Complete project had 8 systems including the employee management system.
 
+Full project --> https://github.com/ITPProject123/ITP-Completed
+
 Used Technologies :
 
 Java,
